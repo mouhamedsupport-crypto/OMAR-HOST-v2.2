@@ -1,0 +1,1608 @@
+<!doctype html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width,initial-scale=1" />
+    <title>خاصة بالادمن · MOUHAMED HOST</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700;900&display=swap" rel="stylesheet">
+    <style>
+        /* ========== ROOT ========== */
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+        :root {
+            --bg-primary: #06080e;
+            --bg-secondary: #0b0f1a;
+            --bg-card: rgba(255, 255, 255, .05);
+            --border-subtle: rgba(255, 255, 255, .07);
+            --border-glass: rgba(255, 255, 255, .10);
+            --text-primary: #f0f4ff;
+            --text-secondary: #9aa7b9;
+            --text-muted: #6a7a8e;
+            --accent-1: #00d4ff;
+            --accent-2: #7b61ff;
+            --accent-glow: rgba(0, 212, 255, .25);
+            --gradient-accent: linear-gradient(135deg, #00d4ff, #7b61ff);
+            --gradient-card: linear-gradient(170deg, rgba(255, 255, 255, .07), rgba(255, 255, 255, .02));
+            --shadow-soft: 0 12px 48px rgba(0, 0, 0, .60);
+            --radius-sm: 10px;
+            --radius-md: 16px;
+            --radius-lg: 22px;
+            --radius-xl: 28px;
+            --transition: .25s cubic-bezier(.34, 1.56, .64, 1);
+            --font: 'Cairo', system-ui, sans-serif;
+            --danger: #ff6b6b;
+            --ok: #7CFF7C;
+            --warn: #ffd166;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            font-family: var(--font);
+            color: var(--text-primary);
+            background: var(--bg-primary);
+            min-height: 100vh;
+            background-image:
+                radial-gradient(1200px 700px at 5% 5%, rgba(0, 212, 255, .12), transparent 60%),
+                radial-gradient(1000px 600px at 95% 15%, rgba(123, 97, 255, .10), transparent 55%),
+                radial-gradient(800px 500px at 50% 100%, rgba(0, 212, 255, .05), transparent 50%);
+            background-attachment: fixed;
+            line-height: 1.6;
+        }
+
+        /* ========== SCROLLBAR ========== */
+        ::-webkit-scrollbar {
+            width: 6px;
+            height: 6px;
+        }
+        ::-webkit-scrollbar-track {
+            background: var(--bg-primary);
+        }
+        ::-webkit-scrollbar-thumb {
+            background: var(--gradient-accent);
+            border-radius: 999px;
+        }
+
+        /* ========== TOP BAR ========== */
+        .top {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 12px 24px;
+            background: rgba(6, 8, 14, .72);
+            backdrop-filter: blur(24px) saturate(1.4);
+            border-bottom: 1px solid var(--border-glass);
+            position: sticky;
+            top: 0;
+            z-index: 30;
+            transition: background var(--transition);
+        }
+        .top:hover {
+            background: rgba(6, 8, 14, .88);
+        }
+
+        .logo-area {
+            display: flex;
+            align-items: center;
+            gap: 14px;
+        }
+        .logo-icon {
+            width: 44px;
+            height: 44px;
+            border-radius: var(--radius-sm);
+            display: grid;
+            place-items: center;
+            font-size: 20px;
+            background: var(--gradient-accent);
+            box-shadow: 0 0 30px rgba(0, 212, 255, .20);
+            border: 1px solid rgba(255, 255, 255, .12);
+            transition: transform var(--transition), box-shadow var(--transition);
+        }
+        .logo-icon:hover {
+            transform: scale(1.04);
+            box-shadow: 0 0 40px rgba(0, 212, 255, .35);
+        }
+        .logo-icon img {
+            width: 100%;
+            height: 100%;
+            border-radius: var(--radius-sm);
+            object-fit: cover;
+        }
+
+        .logo-text {
+            font-weight: 900;
+            font-size: 16px;
+            letter-spacing: .3px;
+            line-height: 1.2;
+        }
+        .logo-text span {
+            background: var(--gradient-accent);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+        .logo-sub {
+            font-size: 11px;
+            color: var(--text-secondary);
+            font-weight: 600;
+            letter-spacing: .2px;
+        }
+
+        .top-actions {
+            display: flex;
+            gap: 10px;
+            align-items: center;
+            flex-wrap: wrap;
+        }
+
+        /* ========== BUTTONS ========== */
+        .btn {
+            padding: 9px 18px;
+            border-radius: var(--radius-sm);
+            border: 1px solid var(--border-glass);
+            background: rgba(255, 255, 255, .06);
+            color: var(--text-primary);
+            font-weight: 700;
+            cursor: pointer;
+            font-family: var(--font);
+            font-size: 13px;
+            transition: all var(--transition);
+            backdrop-filter: blur(6px);
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            text-decoration: none;
+            user-select: none;
+        }
+        .btn:hover {
+            background: rgba(255, 255, 255, .12);
+            transform: translateY(-2px);
+            border-color: rgba(255, 255, 255, .18);
+            box-shadow: 0 6px 24px rgba(0, 0, 0, .30);
+        }
+        .btn:active {
+            transform: translateY(0px) scale(.97);
+        }
+
+        .btn-accent {
+            border: 0;
+            background: var(--gradient-accent);
+            color: #00131c;
+            box-shadow: 0 4px 20px rgba(0, 212, 255, .20);
+        }
+        .btn-accent:hover {
+            box-shadow: 0 6px 32px rgba(0, 212, 255, .35);
+            transform: translateY(-2px);
+            border-color: transparent;
+        }
+
+        .btn-danger {
+            background: rgba(255, 77, 77, .14);
+            border-color: rgba(255, 77, 77, .25);
+            color: #ffaaaa;
+        }
+        .btn-danger:hover {
+            background: rgba(255, 77, 77, .22);
+            border-color: rgba(255, 77, 77, .40);
+        }
+
+        .btn-success {
+            background: rgba(51, 255, 153, .12);
+            border-color: rgba(51, 255, 153, .25);
+            color: #33ff99;
+        }
+        .btn-success:hover {
+            background: rgba(51, 255, 153, .20);
+            border-color: rgba(51, 255, 153, .40);
+        }
+
+        .btn-warn {
+            background: rgba(255, 209, 102, .12);
+            border-color: rgba(255, 209, 102, .25);
+            color: #ffd166;
+        }
+        .btn-warn:hover {
+            background: rgba(255, 209, 102, .20);
+            border-color: rgba(255, 209, 102, .40);
+        }
+
+        /* ========== WRAP ========== */
+        .wrap {
+            max-width: 1360px;
+            margin: 24px auto;
+            padding: 0 24px;
+        }
+
+        /* ========== STATS GRID ========== */
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 14px;
+            margin-bottom: 28px;
+        }
+        @media(max-width: 1024px) {
+            .stats-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+        }
+        @media(max-width: 540px) {
+            .stats-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        .stat-card {
+            background: var(--gradient-card);
+            border: 1px solid var(--border-glass);
+            border-radius: var(--radius-md);
+            padding: 18px 20px;
+            backdrop-filter: blur(16px);
+            position: relative;
+            overflow: hidden;
+            transition: all var(--transition);
+            box-shadow: var(--shadow-soft);
+        }
+        .stat-card:hover {
+            transform: translateY(-3px);
+            border-color: rgba(0, 212, 255, .25);
+            box-shadow: 0 16px 56px rgba(0, 0, 0, .55);
+        }
+        .stat-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 2px;
+            background: var(--gradient-accent);
+            opacity: .4;
+            transition: opacity var(--transition);
+        }
+        .stat-card:hover::before {
+            opacity: .9;
+        }
+        .stat-card .stat-icon {
+            position: absolute;
+            top: 14px;
+            left: 18px;
+            font-size: 20px;
+            opacity: .20;
+            transition: opacity var(--transition), transform var(--transition);
+        }
+        .stat-card:hover .stat-icon {
+            opacity: .35;
+            transform: scale(1.05);
+        }
+        .stat-k {
+            color: var(--text-secondary);
+            font-size: 12px;
+            font-weight: 700;
+            letter-spacing: .2px;
+        }
+        .stat-v {
+            font-size: 26px;
+            font-weight: 950;
+            margin-top: 4px;
+            letter-spacing: -.3px;
+            line-height: 1.2;
+            background: var(--gradient-accent);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+        .stat-v[style*="color:var(--ok)"] {
+            background: linear-gradient(135deg, #7CFF7C, #33ff99);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+        .stat-v[style*="color:var(--danger)"] {
+            background: linear-gradient(135deg, #ff6b6b, #ff4444);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+        .stat-v[style*="color:var(--warn)"] {
+            background: linear-gradient(135deg, #ffd166, #ff9900);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+        .stat-v[style*="font-size:14px"] {
+            font-size: 15px;
+            -webkit-text-fill-color: var(--text-secondary);
+            background: none;
+            font-weight: 600;
+        }
+
+        /* ========== SECTION HEADER ========== */
+        .section-header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            margin: 28px 0 16px;
+            flex-wrap: wrap;
+            gap: 12px;
+        }
+        .section-title {
+            font-size: 18px;
+            font-weight: 900;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            color: var(--text-primary);
+            letter-spacing: -.2px;
+        }
+        .section-title::after {
+            content: '';
+            flex: 1;
+            height: 2px;
+            min-width: 40px;
+            background: var(--gradient-accent);
+            border-radius: 999px;
+            opacity: .30;
+        }
+
+        /* ========== SEARCH ========== */
+        .search-bar {
+            display: flex;
+            gap: 12px;
+            align-items: center;
+            flex-wrap: wrap;
+            margin-bottom: 16px;
+        }
+        .search-bar input {
+            padding: 11px 16px;
+            border-radius: var(--radius-sm);
+            border: 1px solid var(--border-glass);
+            background: rgba(0, 0, 0, .40);
+            color: var(--text-primary);
+            outline: none;
+            font-family: var(--font);
+            font-size: 13px;
+            flex: 1;
+            min-width: 200px;
+            transition: border-color var(--transition), box-shadow var(--transition);
+            backdrop-filter: blur(6px);
+        }
+        .search-bar input::placeholder {
+            color: var(--text-muted);
+        }
+        .search-bar input:focus {
+            border-color: rgba(0, 212, 255, .50);
+            box-shadow: 0 0 0 4px rgba(0, 212, 255, .08);
+        }
+
+        /* ========== TABLE ========== */
+        .table-wrap {
+            background: var(--gradient-card);
+            border: 1px solid var(--border-glass);
+            border-radius: var(--radius-md);
+            overflow: hidden;
+            box-shadow: var(--shadow-soft);
+            backdrop-filter: blur(14px);
+            overflow-x: auto;
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            min-width: 680px;
+            font-size: 13px;
+        }
+        th,
+        td {
+            padding: 14px 18px;
+            border-bottom: 1px solid rgba(255, 255, 255, .05);
+            text-align: right;
+            vertical-align: middle;
+        }
+        th {
+            color: var(--text-secondary);
+            text-transform: uppercase;
+            letter-spacing: .6px;
+            font-size: 11px;
+            font-weight: 900;
+            background: rgba(0, 0, 0, .30);
+            backdrop-filter: blur(6px);
+        }
+        tr:last-child td {
+            border-bottom: 0;
+        }
+        tr:hover td {
+            background: rgba(255, 255, 255, .04);
+        }
+
+        /* ========== TAGS ========== */
+        .tag {
+            display: inline-block;
+            padding: 4px 12px;
+            border-radius: 999px;
+            background: rgba(0, 0, 0, .30);
+            border: 1px solid rgba(255, 255, 255, .08);
+            font-weight: 800;
+            font-size: 11px;
+            letter-spacing: .2px;
+            color: var(--text-secondary);
+        }
+        .tag.ok {
+            color: var(--ok);
+            border-color: rgba(124, 255, 124, .20);
+            background: rgba(124, 255, 124, .08);
+        }
+        .tag.bad {
+            color: var(--danger);
+            border-color: rgba(255, 107, 107, .20);
+            background: rgba(255, 107, 107, .08);
+        }
+        .tag.mid {
+            color: var(--warn);
+            border-color: rgba(255, 209, 102, .20);
+            background: rgba(255, 209, 102, .08);
+        }
+        .tag.info {
+            color: var(--accent-1);
+            border-color: rgba(0, 212, 255, .20);
+            background: rgba(0, 212, 255, .08);
+        }
+
+        /* ========== EXPIRY BADGE ========== */
+        .expiry-badge {
+            display: inline-block;
+            padding: 3px 10px;
+            border-radius: 6px;
+            font-size: 11px;
+            font-weight: 800;
+        }
+        .expiry-badge.active {
+            background: rgba(51, 255, 153, .10);
+            color: #33ff99;
+            border: 1px solid rgba(51, 255, 153, .20);
+        }
+        .expiry-badge.expired {
+            background: rgba(255, 77, 77, .10);
+            color: #ff6b6b;
+            border: 1px solid rgba(255, 77, 77, .20);
+        }
+        .expiry-badge.soon {
+            background: rgba(255, 209, 102, .10);
+            color: #ffd166;
+            border: 1px solid rgba(255, 209, 102, .20);
+        }
+
+        /* ========== ACTIONS CELL ========== */
+        .actions-cell {
+            display: flex;
+            gap: 6px;
+            flex-wrap: wrap;
+            justify-content: flex-end;
+        }
+        .actions-cell .btn {
+            padding: 5px 12px;
+            font-size: 11px;
+            border-radius: 8px;
+        }
+
+        /* ========== ADMIN TABS ========== */
+        .admin-tabs {
+            display: flex;
+            gap: 10px;
+            margin-bottom: 24px;
+            flex-wrap: wrap;
+            background: rgba(255, 255, 255, .03);
+            padding: 6px;
+            border-radius: var(--radius-md);
+            border: 1px solid var(--border-glass);
+            backdrop-filter: blur(12px);
+        }
+        .admin-tab {
+            padding: 10px 22px;
+            border-radius: var(--radius-sm);
+            border: none;
+            background: transparent;
+            color: var(--text-secondary);
+            cursor: pointer;
+            font-weight: 700;
+            font-size: 13px;
+            font-family: var(--font);
+            transition: all var(--transition);
+            position: relative;
+        }
+        .admin-tab:hover:not(.active) {
+            color: var(--text-primary);
+            background: rgba(255, 255, 255, .05);
+        }
+        .admin-tab.active {
+            background: var(--gradient-accent);
+            color: #00131c;
+            box-shadow: 0 4px 20px rgba(0, 212, 255, .20);
+        }
+        .tab-content {
+            display: none;
+            animation: fadeUp .35s ease;
+        }
+        .tab-content.active {
+            display: block;
+        }
+
+        @keyframes fadeUp {
+            from {
+                opacity: 0;
+                transform: translateY(12px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        /* ========== MODAL ========== */
+        .modal-backdrop {
+            position: fixed;
+            inset: 0;
+            background: rgba(0, 0, 0, .75);
+            backdrop-filter: blur(18px);
+            display: none;
+            align-items: center;
+            justify-content: center;
+            z-index: 100;
+            padding: 20px;
+            animation: fadeIn .2s ease;
+        }
+        .modal-backdrop.active {
+            display: flex;
+        }
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+            }
+            to {
+                opacity: 1;
+            }
+        }
+
+        .modal {
+            width: 100%;
+            max-width: 500px;
+            background: linear-gradient(170deg, rgba(16, 22, 40, .98), rgba(8, 12, 24, .98));
+            border: 1px solid var(--border-glass);
+            border-radius: var(--radius-lg);
+            box-shadow: 0 40px 100px rgba(0, 0, 0, .70);
+            backdrop-filter: blur(24px);
+            padding: 28px 30px;
+            animation: modalPop .35s cubic-bezier(.34, 1.56, .64, 1);
+        }
+        @keyframes modalPop {
+            from {
+                opacity: 0;
+                transform: scale(.92) translateY(24px);
+            }
+            to {
+                opacity: 1;
+                transform: scale(1) translateY(0);
+            }
+        }
+
+        .modal-header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            margin-bottom: 22px;
+        }
+        .modal-title {
+            font-size: 18px;
+            font-weight: 900;
+            background: var(--gradient-accent);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+        .modal-close {
+            width: 34px;
+            height: 34px;
+            border-radius: var(--radius-sm);
+            background: rgba(255, 255, 255, .06);
+            border: 1px solid var(--border-glass);
+            color: var(--text-secondary);
+            cursor: pointer;
+            font-size: 16px;
+            display: grid;
+            place-items: center;
+            transition: all var(--transition);
+        }
+        .modal-close:hover {
+            background: rgba(255, 255, 255, .12);
+            color: var(--text-primary);
+            transform: rotate(90deg);
+        }
+
+        /* ========== FORM ========== */
+        .form-group {
+            margin-bottom: 16px;
+        }
+        .form-group label {
+            display: block;
+            font-size: 12px;
+            font-weight: 700;
+            color: var(--text-secondary);
+            margin-bottom: 5px;
+            letter-spacing: .2px;
+        }
+        .form-group input,
+        .form-group select {
+            width: 100%;
+            padding: 12px 16px;
+            border-radius: var(--radius-sm);
+            border: 1px solid var(--border-glass);
+            background: rgba(0, 0, 0, .40);
+            color: var(--text-primary);
+            outline: none;
+            font-family: var(--font);
+            font-size: 13px;
+            transition: border-color var(--transition), box-shadow var(--transition);
+            backdrop-filter: blur(6px);
+        }
+        .form-group input:focus,
+        .form-group select:focus {
+            border-color: rgba(0, 212, 255, .50);
+            box-shadow: 0 0 0 4px rgba(0, 212, 255, .08);
+        }
+        .form-group select option {
+            background: #121826;
+            color: var(--text-primary);
+        }
+        .form-group input[readonly] {
+            opacity: .6;
+            cursor: not-allowed;
+        }
+
+        .form-row {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 14px;
+        }
+        @media(max-width: 480px) {
+            .form-row {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        .modal-footer {
+            display: flex;
+            gap: 12px;
+            justify-content: flex-end;
+            margin-top: 22px;
+            padding-top: 18px;
+            border-top: 1px solid var(--border-glass);
+        }
+
+        /* ========== SYSTEM GRID ========== */
+        .sys-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 16px;
+        }
+        @media(max-width: 700px) {
+            .sys-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        .sys-card {
+            background: var(--gradient-card);
+            border: 1px solid var(--border-glass);
+            border-radius: var(--radius-md);
+            padding: 20px 22px;
+            backdrop-filter: blur(12px);
+            transition: all var(--transition);
+        }
+        .sys-card:hover {
+            border-color: rgba(0, 212, 255, .20);
+            transform: translateY(-2px);
+        }
+        .sys-card .label {
+            font-size: 11px;
+            color: var(--text-secondary);
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: .4px;
+            margin-bottom: 8px;
+        }
+        .sys-card .value {
+            font-size: 20px;
+            font-weight: 900;
+            background: var(--gradient-accent);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+        .progress-bar {
+            height: 6px;
+            background: rgba(255, 255, 255, .08);
+            border-radius: 999px;
+            margin-top: 10px;
+            overflow: hidden;
+        }
+        .progress-fill {
+            height: 100%;
+            border-radius: 999px;
+            transition: width .6s ease;
+        }
+        .progress-fill.ok {
+            background: linear-gradient(90deg, #33ff99, #00d4ff);
+        }
+        .progress-fill.warn {
+            background: linear-gradient(90deg, #ffd166, #ff9900);
+        }
+        .progress-fill.bad {
+            background: linear-gradient(90deg, #ff6b6b, #ff4444);
+        }
+
+        /* ========== SYSTEM INFO ========== */
+        .sys-info-box {
+            margin-top: 18px;
+            background: var(--gradient-card);
+            border: 1px solid var(--border-glass);
+            border-radius: var(--radius-md);
+            padding: 20px 24px;
+            backdrop-filter: blur(12px);
+            line-height: 2.1;
+            font-size: 13px;
+            color: var(--text-secondary);
+        }
+        .sys-info-box strong {
+            color: var(--text-primary);
+        }
+
+        /* ========== TOAST ========== */
+        .toast {
+            position: fixed;
+            top: 24px;
+            left: 50%;
+            transform: translateX(-50%) translateY(-100px);
+            background: var(--gradient-accent);
+            color: #00131c;
+            padding: 14px 32px;
+            border-radius: 50px;
+            font-weight: 800;
+            font-size: 14px;
+            font-family: var(--font);
+            z-index: 200;
+            transition: transform .4s cubic-bezier(.34, 1.56, .64, 1), opacity .4s ease;
+            pointer-events: none;
+            box-shadow: 0 8px 40px rgba(0, 212, 255, .25);
+            white-space: nowrap;
+            opacity: 0;
+        }
+        .toast.show {
+            transform: translateX(-50%) translateY(0);
+            opacity: 1;
+        }
+        .toast.error {
+            background: linear-gradient(135deg, rgba(255, 77, 77, .92), rgba(200, 50, 50, .85));
+            color: #fff;
+            box-shadow: 0 8px 40px rgba(255, 77, 77, .30);
+        }
+
+        /* ========== FOOTER ========== */
+        .dev-footer {
+            text-align: center;
+            padding: 28px 20px 20px;
+            color: var(--text-muted);
+            font-size: 12px;
+            border-top: 1px solid var(--border-glass);
+            margin-top: 40px;
+            backdrop-filter: blur(6px);
+        }
+        .dev-footer a {
+            color: var(--accent-1);
+            text-decoration: none;
+            font-weight: 700;
+            transition: color var(--transition);
+        }
+        .dev-footer a:hover {
+            color: var(--accent-2);
+            text-decoration: underline;
+        }
+        .dev-footer .footer-divider {
+            color: var(--border-glass);
+            margin: 0 6px;
+        }
+
+        /* ========== RESPONSIVE TWEAKS ========== */
+        @media(max-width: 768px) {
+            .top {
+                padding: 10px 16px;
+                flex-wrap: wrap;
+                gap: 8px;
+            }
+            .top-actions {
+                width: 100%;
+                justify-content: flex-start;
+                gap: 6px;
+            }
+            .top-actions .btn {
+                padding: 7px 14px;
+                font-size: 12px;
+            }
+            .wrap {
+                padding: 0 14px;
+                margin: 16px auto;
+            }
+            .modal {
+                padding: 20px 18px;
+            }
+            .stat-card {
+                padding: 14px 16px;
+            }
+            .stat-v {
+                font-size: 20px;
+            }
+            .admin-tab {
+                padding: 8px 14px;
+                font-size: 12px;
+            }
+            .section-title {
+                font-size: 16px;
+            }
+            th,
+            td {
+                padding: 10px 12px;
+                font-size: 12px;
+            }
+        }
+
+        @media(max-width: 480px) {
+            .top .logo-text {
+                font-size: 14px;
+            }
+            .top .logo-sub {
+                font-size: 10px;
+            }
+            .toast {
+                font-size: 12px;
+                padding: 10px 20px;
+                white-space: normal;
+                max-width: 90%;
+            }
+            .stat-v {
+                font-size: 18px;
+            }
+        }
+
+        /* ========== MISC UTILITIES ========== */
+        .text-muted {
+            color: var(--text-muted);
+        }
+        .text-accent {
+            color: var(--accent-1);
+        }
+
+        /* Create account tab card */
+        .create-card {
+            background: var(--gradient-card);
+            border: 1px solid var(--border-glass);
+            border-radius: var(--radius-md);
+            padding: 28px 30px;
+            backdrop-filter: blur(14px);
+            box-shadow: var(--shadow-soft);
+            max-width: 560px;
+        }
+        @media(max-width: 480px) {
+            .create-card {
+                padding: 18px 16px;
+            }
+        }
+        #create_msg {
+            margin-top: 14px;
+            font-size: 13px;
+            min-height: 20px;
+            text-align: center;
+            font-weight: 700;
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Toast -->
+    <div class="toast" id="toast"></div>
+
+    <!-- Top Bar -->
+    <div class="top">
+        <div class="logo-area">
+            <div class="logo-icon">
+                <img src="/moha.png" alt="MOUHANED" style="width:100%;height:100%;border-radius:10px;object-fit:cover;">
+            </div>
+            <div>
+                <div class="logo-text"><span>MOUHAMED-HOST</span></div>
+                <div class="logo-sub">لوحة تحكم المسؤول</div>
+            </div>
+        </div>
+        <div class="top-actions">
+            <button class="btn" onclick="refreshAll()">🔄 تحديث</button>
+            <button class="btn" onclick="location.href='/'">🏠 اللوحة</button>
+            <button class="btn btn-danger" onclick="location.href='/logout'">خروج</button>
+        </div>
+    </div>
+
+    <div class="wrap">
+
+        <!-- Stats -->
+        <div class="stats-grid" id="statsGrid">
+            <div class="stat-card">
+                <div class="stat-icon">🖥️</div>
+                <div class="stat-k">إجمالي السيرفرات</div>
+                <div class="stat-v" id="st_total">0</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-icon">✅</div>
+                <div class="stat-k">تعمل الآن</div>
+                <div class="stat-v" style="color:var(--ok)" id="st_run">0</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-icon">👥</div>
+                <div class="stat-k">إجمالي المستخدمين</div>
+                <div class="stat-v" id="u_total">0</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-icon">⭐</div>
+                <div class="stat-k">مستخدمون مميزون</div>
+                <div class="stat-v" style="color:var(--warn)" id="u_premium">0</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-icon">🚫</div>
+                <div class="stat-k">سيرفرات محظورة</div>
+                <div class="stat-v" style="color:var(--danger)" id="st_ban">0</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-icon">⚙️</div>
+                <div class="stat-k">قيد التثبيت</div>
+                <div class="stat-v" style="color:var(--warn)" id="st_ins">0</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-icon">✔️</div>
+                <div class="stat-k">مستخدمون نشطون</div>
+                <div class="stat-v" style="color:var(--ok)" id="u_active">0</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-icon">🕐</div>
+                <div class="stat-k">آخر تحديث</div>
+                <div class="stat-v" style="font-size:14px" id="last_update">—</div>
+            </div>
+        </div>
+
+        <!-- Admin Tabs -->
+        <div class="admin-tabs">
+            <button class="admin-tab active" onclick="switchAdminTab('users')">👥 إدارة المستخدمين</button>
+            <button class="admin-tab" onclick="switchAdminTab('servers')">🖥️ إدارة السيرفرات</button>
+            <button class="admin-tab" onclick="switchAdminTab('create')">➕ إنشاء حساب</button>
+            <button class="admin-tab" onclick="switchAdminTab('system')">📊 معلومات النظام</button>
+        </div>
+
+        <!-- Users Tab -->
+        <div class="tab-content active" id="tab-users">
+            <div class="section-header">
+                <div class="section-title">👥 قائمة المستخدمين</div>
+            </div>
+            <div class="search-bar">
+                <input id="searchUser" placeholder="🔍 بحث باسم المستخدم أو البريد..." oninput="filterUsers()">
+                <button class="btn btn-accent" onclick="openCreateModal()">➕ إنشاء حساب جديد</button>
+            </div>
+            <div class="table-wrap">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>المستخدم</th>
+                            <th>البريد الإلكتروني</th>
+                            <th>السيرفرات</th>
+                            <th>الحد الأقصى</th>
+                            <th>الحالة</th>
+                            <th>النوع</th>
+                            <th>الانتهاء</th>
+                            <th>الإجراءات</th>
+                        </tr>
+                    </thead>
+                    <tbody id="usersT"></tbody>
+                </table>
+            </div>
+        </div>
+
+        <!-- Servers Tab -->
+        <div class="tab-content" id="tab-servers">
+            <div class="section-header">
+                <div class="section-title">🖥️ قائمة السيرفرات</div>
+            </div>
+            <div class="search-bar">
+                <input id="searchServer" placeholder="🔍 بحث في السيرفرات..." oninput="filterServers()">
+            </div>
+            <div class="table-wrap">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>المجلد</th>
+                            <th>الاسم</th>
+                            <th>المالك</th>
+                            <th>الملف الرئيسي</th>
+                            <th>الحالة</th>
+                            <th>الإجراءات</th>
+                        </tr>
+                    </thead>
+                    <tbody id="serversT"></tbody>
+                </table>
+            </div>
+        </div>
+
+        <!-- Create Account Tab -->
+        <div class="tab-content" id="tab-create">
+            <div class="section-header">
+                <div class="section-title">➕ إنشاء حساب جديد</div>
+            </div>
+            <div class="create-card">
+                <div class="form-group">
+                    <label>اسم المستخدم *</label>
+                    <input id="c_user" placeholder="أدخل اسم المستخدم" />
+                </div>
+                <div class="form-group">
+                    <label>كلمة المرور *</label>
+                    <input id="c_pass" type="password" placeholder="أدخل كلمة المرور" />
+                </div>
+                <div class="form-row">
+                    <div class="form-group">
+                        <label>عدد السيرفرات المسموح بها</label>
+                        <input id="c_servers" type="number" min="1" max="100" value="1" placeholder="1" />
+                    </div>
+                    <div class="form-group">
+                        <label>مدة الاشتراك (بالأيام)</label>
+                        <input id="c_days" type="number" min="1" max="3650" value="30" placeholder="30" />
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label>نوع الحساب</label>
+                    <select id="c_type">
+                        <option value="normal">عادي</option>
+                        <option value="premium">مميز (Premium)</option>
+                    </select>
+                </div>
+                <div style="display:flex;gap:12px;margin-top:8px">
+                    <button class="btn btn-accent" style="flex:1;padding:13px" onclick="createAccountDirect()">✅ إنشاء الحساب</button>
+                </div>
+                <div id="create_msg"></div>
+            </div>
+        </div>
+
+        <!-- System Tab -->
+        <div class="tab-content" id="tab-system">
+            <div class="section-header">
+                <div class="section-title">📊 معلومات النظام</div>
+            </div>
+            <div class="sys-grid">
+                <div class="sys-card">
+                    <div class="label">استخدام المعالج</div>
+                    <div class="value" id="sys_cpu">—</div>
+                    <div class="progress-bar"><div class="progress-fill ok" id="cpu_bar" style="width:0%"></div></div>
+                </div>
+                <div class="sys-card">
+                    <div class="label">استخدام الذاكرة</div>
+                    <div class="value" id="sys_mem">—</div>
+                    <div class="progress-bar"><div class="progress-fill ok" id="mem_bar" style="width:0%"></div></div>
+                </div>
+                <div class="sys-card">
+                    <div class="label">مساحة القرص</div>
+                    <div class="value" id="sys_disk">—</div>
+                    <div class="progress-bar"><div class="progress-fill ok" id="disk_bar" style="width:0%"></div></div>
+                </div>
+            </div>
+            <div class="sys-info-box" id="sys_info">جاري تحميل معلومات النظام...</div>
+        </div>
+
+        <!-- Footer -->
+        <div class="dev-footer">
+            <div>MOUHAMED-HOST &mdash; لوحة تحكم الاستضافة المتقدمة</div>
+            <div style="margin-top:6px">
+                المطور: <a href="https://t.me/RLH55" target="_blank">@anankfg</a> <span class="footer-divider">|</span>
+                القناة: <a href="https://t.me/RLH200" target="_blank">@oivxm</a>
+            </div>
+        </div>
+
+    </div>
+
+    <!-- Edit User Modal -->
+    <div class="modal-backdrop" id="editModal">
+        <div class="modal">
+            <div class="modal-header">
+                <div class="modal-title">✏️ تعديل المستخدم</div>
+                <button class="modal-close" onclick="closeEditModal()">✕</button>
+            </div>
+            <div class="form-group">
+                <label>اسم المستخدم</label>
+                <input id="edit_username" readonly style="opacity:.6" />
+            </div>
+            <div class="form-row">
+                <div class="form-group">
+                    <label>عدد السيرفرات المسموح بها</label>
+                    <input id="edit_servers" type="number" min="1" max="100" />
+                </div>
+                <div class="form-group">
+                    <label>إضافة أيام للاشتراك</label>
+                    <input id="edit_days" type="number" min="0" placeholder="0 = بدون تغيير" />
+                </div>
+            </div>
+            <div class="form-group">
+                <label>نوع الحساب</label>
+                <select id="edit_premium">
+                    <option value="false">عادي</option>
+                    <option value="true">مميز (Premium)</option>
+                </select>
+            </div>
+            <div class="form-group">
+                <label>كلمة مرور جديدة (اتركها فارغة للإبقاء على الحالية)</label>
+                <input id="edit_pass" type="password" placeholder="كلمة مرور جديدة..." />
+            </div>
+            <div class="modal-footer">
+                <button class="btn" onclick="closeEditModal()">إلغاء</button>
+                <button class="btn btn-accent" onclick="saveEditUser()">💾 حفظ التغييرات</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Create User Modal (quick) -->
+    <div class="modal-backdrop" id="createModal">
+        <div class="modal">
+            <div class="modal-header">
+                <div class="modal-title">➕ إنشاء حساب جديد</div>
+                <button class="modal-close" onclick="closeCreateModal()">✕</button>
+            </div>
+            <div class="form-group">
+                <label>اسم المستخدم *</label>
+                <input id="m_user" placeholder="أدخل اسم المستخدم" />
+            </div>
+            <div class="form-group">
+                <label>كلمة المرور *</label>
+                <input id="m_pass" type="password" placeholder="أدخل كلمة المرور" />
+            </div>
+            <div class="form-row">
+                <div class="form-group">
+                    <label>عدد السيرفرات</label>
+                    <input id="m_servers" type="number" min="1" max="100" value="1" />
+                </div>
+                <div class="form-group">
+                    <label>مدة الاشتراك (أيام)</label>
+                    <input id="m_days" type="number" min="1" value="30" />
+                </div>
+            </div>
+            <div class="form-group">
+                <label>نوع الحساب</label>
+                <select id="m_type">
+                    <option value="normal">عادي</option>
+                    <option value="premium">مميز</option>
+                </select>
+            </div>
+            <div class="modal-footer">
+                <button class="btn" onclick="closeCreateModal()">إلغاء</button>
+                <button class="btn btn-accent" onclick="createAccountModal()">✅ إنشاء</button>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        let usersCache = [];
+        let serversCache = [];
+        let currentEditUser = null;
+
+        // ===== Toast =====
+        function showToast(msg, isError = false) {
+            const t = document.getElementById('toast');
+            t.textContent = msg;
+            t.className = 'toast' + (isError ? ' error' : '');
+            t.classList.add('show');
+            setTimeout(() => t.classList.remove('show'), 3000);
+        }
+
+        // ===== Tabs =====
+        function switchAdminTab(name) {
+            document.querySelectorAll('.admin-tab').forEach((t, i) => {
+                const tabs = ['users', 'servers', 'create', 'system'];
+                t.classList.toggle('active', tabs[i] === name);
+            });
+            document.querySelectorAll('.tab-content').forEach(c => c.classList.remove('active'));
+            document.getElementById('tab-' + name).classList.add('active');
+            if (name === 'system') loadSystemInfo();
+        }
+
+        // ===== Status helpers =====
+        function tagStatus(s) {
+            const st = (s || '').toLowerCase();
+            if (st === 'running') return '<span class="tag ok">يعمل</span>';
+            if (st === 'installing' || st === 'starting') return '<span class="tag mid">يُثبَّت</span>';
+            if (st === 'banned') return '<span class="tag bad">محظور</span>';
+            return '<span class="tag">غير متصل</span>';
+        }
+
+        function expiryBadge(expiry) {
+            if (!expiry) return '<span class="tag">غير محدد</span>';
+            const now = new Date();
+            const exp = new Date(expiry);
+            const diff = Math.ceil((exp - now) / (1000 * 60 * 60 * 24));
+            if (diff < 0) return `<span class="expiry-badge expired">منتهي</span>`;
+            if (diff <= 7) return `<span class="expiry-badge soon">${diff} أيام</span>`;
+            return `<span class="expiry-badge active">${diff} يوم</span>`;
+        }
+
+        // ===== Stats =====
+        async function refreshStats() {
+            try {
+                const r = await fetch('/api/admin/quickstats');
+                const d = await r.json();
+                const s = d.stats || {};
+                document.getElementById('st_total').textContent = s.servers_total || 0;
+                document.getElementById('st_run').textContent = s.servers_running || 0;
+                document.getElementById('st_ins').textContent = s.servers_installing || 0;
+                document.getElementById('st_ban').textContent = s.servers_banned || 0;
+                document.getElementById('u_total').textContent = s.users_total || 0;
+                document.getElementById('u_active').textContent = s.users_active || 0;
+                document.getElementById('u_premium').textContent = s.users_premium || 0;
+                document.getElementById('last_update').textContent = new Date().toLocaleTimeString('ar');
+            } catch (e) {}
+        }
+
+        // ===== Servers =====
+        async function refreshServers() {
+            try {
+                const r = await fetch('/api/admin/servers');
+                const d = await r.json();
+                serversCache = d.servers || [];
+                renderServers(serversCache);
+            } catch (e) {}
+        }
+
+        function renderServers(arr) {
+            const t = document.getElementById('serversT');
+            t.innerHTML = '';
+            if (!arr.length) {
+                t.innerHTML =
+                    '<tr><td colspan="6" style="text-align:center;padding:30px;color:var(--text-muted)">لا توجد سيرفرات</td></tr>';
+                return;
+            }
+            arr.forEach(s => {
+                const isBanned = (s.status || '').toLowerCase() === 'banned';
+                t.innerHTML += `
+              <tr>
+                <td style="direction:ltr;text-align:left;font-family:monospace">${escapeHtml(s.folder||'')}</td>
+                <td>${escapeHtml(s.title||s.display_name||'')}</td>
+                <td><span class="tag info">${escapeHtml(s.owner||'')}</span></td>
+                <td style="direction:ltr;text-align:left;font-family:monospace;font-size:12px">${escapeHtml(s.startup_file||'—')}</td>
+                <td>${tagStatus(s.status)}</td>
+                <td>
+                  <div class="actions-cell">
+                    ${isBanned
+                      ? `<button class="btn btn-success" style="padding:6px 12px;font-size:12px" onclick="banServer('${escapeAttr(s.key||s.folder)}', false)">رفع الحظر</button>`
+                      : `<button class="btn btn-danger" style="padding:6px 12px;font-size:12px" onclick="banServer('${escapeAttr(s.key||s.folder)}', true)">حظر</button>`
+                    }
+                    <button class="btn btn-danger" style="padding:6px 12px;font-size:12px" onclick="deleteServer('${escapeAttr(s.key||s.folder)}', '${escapeAttr(s.title||'')}')">🗑 حذف</button>
+                  </div>
+                </td>
+              </tr>`;
+            });
+        }
+
+        function filterServers() {
+            const q = (document.getElementById('searchServer').value || '').toLowerCase().trim();
+            if (!q) return renderServers(serversCache);
+            renderServers(serversCache.filter(s =>
+                (s.folder || '').toLowerCase().includes(q) ||
+                (s.title || '').toLowerCase().includes(q) ||
+                (s.owner || '').toLowerCase().includes(q)
+            ));
+        }
+
+        async function banServer(key, banned) {
+            try {
+                const r = await fetch('/api/admin/server/ban', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ key, banned })
+                });
+                const d = await r.json();
+                if (d.success) {
+                    showToast(banned ? 'تم حظر السيرفر' : 'تم رفع الحظر عن السيرفر');
+                    refreshAll();
+                } else {
+                    showToast(d.message || 'فشلت العملية', true);
+                }
+            } catch (e) { showToast('خطأ في الاتصال', true); }
+        }
+
+        async function deleteServer(key, name) {
+            if (!confirm(`هل تريد حذف السيرفر "${name}" نهائياً؟ لا يمكن التراجع عن هذا الإجراء.`)) return;
+            try {
+                const r = await fetch('/api/admin/server/delete', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ key })
+                });
+                const d = await r.json();
+                if (d.success) {
+                    showToast('تم حذف السيرفر بنجاح');
+                    refreshAll();
+                } else {
+                    showToast(d.message || 'فشل الحذف', true);
+                }
+            } catch (e) { showToast('خطأ في الاتصال', true); }
+        }
+
+        // ===== Users =====
+        async function refreshUsers() {
+            try {
+                const r = await fetch('/api/admin/users');
+                const d = await r.json();
+                usersCache = d.users || [];
+                renderUsers(usersCache);
+            } catch (e) {}
+        }
+
+        function renderUsers(arr) {
+            const t = document.getElementById('usersT');
+            t.innerHTML = '';
+            if (!arr.length) {
+                t.innerHTML =
+                    '<tr><td colspan="8" style="text-align:center;padding:30px;color:var(--text-muted)">لا يوجد مستخدمون</td></tr>';
+                return;
+            }
+            arr.forEach(u => {
+                const maxSrv = u.server_limit || (u.premium ? 5 : 1);
+                t.innerHTML += `
+              <tr>
+                <td><strong>${escapeHtml(u.username||'')}</strong></td>
+                <td style="font-size:12px;color:var(--text-secondary)">${escapeHtml(u.email||'—')}</td>
+                <td><span class="tag">${u.servers||0}</span></td>
+                <td><span class="tag info">${maxSrv}</span></td>
+                <td>${u.active ? '<span class="tag ok">نشط</span>' : '<span class="tag bad">محظور</span>'}</td>
+                <td>${u.premium ? '<span class="tag mid">⭐ مميز</span>' : '<span class="tag">عادي</span>'}</td>
+                <td>${expiryBadge(u.expiry)}</td>
+                <td>
+                  <div class="actions-cell">
+                    <button class="btn btn-warn" style="padding:6px 12px;font-size:12px" onclick="openEditModal('${escapeAttr(u.username)}')">✏️ تعديل</button>
+                    <button class="btn ${u.active ? 'btn-danger' : 'btn-success'}" style="padding:6px 12px;font-size:12px" onclick="setActive('${escapeAttr(u.username)}', ${u.active ? 'false':'true'})">${u.active ? 'حظر' : 'رفع الحظر'}</button>
+                    <button class="btn btn-danger" style="padding:6px 12px;font-size:12px" onclick="deleteUser('${escapeAttr(u.username)}')">🗑</button>
+                  </div>
+                </td>
+              </tr>`;
+            });
+        }
+
+        function filterUsers() {
+            const q = (document.getElementById('searchUser').value || '').toLowerCase().trim();
+            if (!q) return renderUsers(usersCache);
+            renderUsers(usersCache.filter(u =>
+                (u.username || '').toLowerCase().includes(q) ||
+                (u.email || '').toLowerCase().includes(q)
+            ));
+        }
+
+        async function setActive(username, active) {
+            try {
+                await fetch('/api/admin/user/update', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ username, active })
+                });
+                showToast(active ? `تم تفعيل ${username}` : `تم حظر ${username}`);
+                refreshUsers();
+                refreshStats();
+            } catch (e) { showToast('خطأ في الاتصال', true); }
+        }
+
+        async function deleteUser(username) {
+            if (!confirm(`هل تريد حذف المستخدم "${username}" نهائياً؟`)) return;
+            try {
+                const r = await fetch('/api/admin/user/delete', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ username })
+                });
+                const d = await r.json();
+                if (d.success) {
+                    showToast('تم حذف المستخدم بنجاح');
+                    refreshAll();
+                } else {
+                    showToast(d.message || 'فشل الحذف', true);
+                }
+            } catch (e) { showToast('خطأ في الاتصال', true); }
+        }
+
+        // ===== Edit Modal =====
+        function openEditModal(username) {
+            const u = usersCache.find(x => x.username === username);
+            if (!u) return;
+            currentEditUser = u;
+            document.getElementById('edit_username').value = u.username;
+            document.getElementById('edit_servers').value = u.server_limit || (u.premium ? 5 : 1);
+            document.getElementById('edit_days').value = '';
+            document.getElementById('edit_premium').value = u.premium ? 'true' : 'false';
+            document.getElementById('edit_pass').value = '';
+            document.getElementById('editModal').classList.add('active');
+        }
+
+        function closeEditModal() {
+            document.getElementById('editModal').classList.remove('active');
+            currentEditUser = null;
+        }
+
+        async function saveEditUser() {
+            if (!currentEditUser) return;
+            const username = currentEditUser.username;
+            const server_limit = parseInt(document.getElementById('edit_servers').value) || 1;
+            const add_days = parseInt(document.getElementById('edit_days').value) || 0;
+            const premium = document.getElementById('edit_premium').value === 'true';
+            const new_password = document.getElementById('edit_pass').value.trim();
+
+            const payload = { username, server_limit, premium };
+            if (add_days > 0) payload.add_days = add_days;
+            if (new_password) payload.new_password = new_password;
+
+            try {
+                const r = await fetch('/api/admin/user/update', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify(payload)
+                });
+                const d = await r.json();
+                if (d.success) {
+                    showToast('تم حفظ التغييرات بنجاح ✓');
+                    closeEditModal();
+                    refreshUsers();
+                    refreshStats();
+                } else {
+                    showToast(d.message || 'فشل الحفظ', true);
+                }
+            } catch (e) { showToast('خطأ في الاتصال', true); }
+        }
+
+        // ===== Create Modal =====
+        function openCreateModal() {
+            document.getElementById('createModal').classList.add('active');
+        }
+
+        function closeCreateModal() {
+            document.getElementById('createModal').classList.remove('active');
+        }
+
+        async function createAccountModal() {
+            const username = document.getElementById('m_user').value.trim();
+            const password = document.getElementById('m_pass').value.trim();
+            const server_limit = parseInt(document.getElementById('m_servers').value) || 1;
+            const days = parseInt(document.getElementById('m_days').value) || 30;
+            const premium = document.getElementById('m_type').value === 'premium';
+
+            if (!username || !password) {
+                showToast('اسم المستخدم وكلمة المرور مطلوبان', true);
+                return;
+            }
+
+            try {
+                const r = await fetch('/api/admin/create-user', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ username, password, server_limit, days, premium })
+                });
+                const d = await r.json();
+                if (d.success) {
+                    showToast(`تم إنشاء حساب ${username} بنجاح ✓`);
+                    closeCreateModal();
+                    refreshAll();
+                } else {
+                    showToast(d.message || 'فشل الإنشاء', true);
+                }
+            } catch (e) { showToast('خطأ في الاتصال', true); }
+        }
+
+        // ===== Create Direct =====
+        async function createAccountDirect() {
+            const username = document.getElementById('c_user').value.trim();
+            const password = document.getElementById('c_pass').value.trim();
+            const server_limit = parseInt(document.getElementById('c_servers').value) || 1;
+            const days = parseInt(document.getElementById('c_days').value) || 30;
+            const premium = document.getElementById('c_type').value === 'premium';
+            const msg = document.getElementById('create_msg');
+
+            if (!username || !password) {
+                msg.style.color = '#ff6b6b';
+                msg.textContent = '⚠ اسم المستخدم وكلمة المرور مطلوبان';
+                return;
+            }
+
+            msg.style.color = 'var(--text-secondary)';
+            msg.textContent = 'جاري الإنشاء...';
+
+            try {
+                const r = await fetch('/api/admin/create-user', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ username, password, server_limit, days, premium })
+                });
+                const d = await r.json();
+                if (d.success) {
+                    msg.style.color = '#7CFF7C';
+                    msg.textContent = `✅ تم إنشاء حساب "${username}" بنجاح!`;
+                    document.getElementById('c_user').value = '';
+                    document.getElementById('c_pass').value = '';
+                    document.getElementById('c_servers').value = '1';
+                    document.getElementById('c_days').value = '30';
+                    showToast(`تم إنشاء حساب ${username} بنجاح ✓`);
+                    refreshAll();
+                } else {
+                    msg.style.color = '#ff6b6b';
+                    msg.textContent = '⚠ ' + (d.message || 'فشل الإنشاء');
+                }
+            } catch (e) {
+                msg.style.color = '#ff6b6b';
+                msg.textContent = '⚠ خطأ في الاتصال بالخادم';
+            }
+        }
+
+        // ===== System Info =====
+        async function loadSystemInfo() {
+            try {
+                const r = await fetch('/api/admin/system');
+                const d = await r.json();
+                if (!d.success) return;
+                const s = d.system;
+
+                document.getElementById('sys_cpu').textContent = s.cpu_percent + '%';
+                document.getElementById('sys_mem').textContent = s.mem_used + ' / ' + s.mem_total;
+                document.getElementById('sys_disk').textContent = s.disk_used + ' / ' + s.disk_total;
+
+                const cpuPct = parseFloat(s.cpu_percent) || 0;
+                const memPct = parseFloat(s.mem_percent) || 0;
+                const diskPct = parseFloat(s.disk_percent) || 0;
+
+                setBar('cpu_bar', cpuPct);
+                setBar('mem_bar', memPct);
+                setBar('disk_bar', diskPct);
+
+                document.getElementById('sys_info').innerHTML = `
+              <div>🖥️ <strong>نظام التشغيل:</strong> ${s.os || '—'}</div>
+              <div>⏱️ <strong>وقت التشغيل:</strong> ${s.uptime || '—'}</div>
+              <div>🐍 <strong>Python:</strong> ${s.python_version || '—'}</div>
+              <div>🌐 <strong>عنوان IP:</strong> ${s.ip || '—'}</div>
+              <div>📦 <strong>إجمالي الملفات:</strong> ${s.total_files || '—'}</div>
+            `;
+            } catch (e) {
+                document.getElementById('sys_info').textContent = 'تعذر تحميل معلومات النظام';
+            }
+        }
+
+        function setBar(id, pct) {
+            const bar = document.getElementById(id);
+            bar.style.width = Math.min(pct, 100) + '%';
+            bar.className = 'progress-fill ' + (pct > 80 ? 'bad' : pct > 60 ? 'warn' : 'ok');
+        }
+
+        // ===== Refresh All =====
+        async function refreshAll() {
+            await Promise.all([refreshStats(), refreshServers(), refreshUsers()]);
+        }
+
+        // ===== Helpers =====
+        function escapeHtml(s) {
+            return (s || '').toString()
+                .replaceAll('&', '&amp;').replaceAll('<', '&lt;')
+                .replaceAll('>', '&gt;').replaceAll('"', '&quot;')
+                .replaceAll("'", "&#039;");
+        }
+
+        function escapeAttr(s) { return escapeHtml(s).replaceAll("\\", "\\\\"); }
+
+        // ===== Init =====
+        document.addEventListener('DOMContentLoaded', () => {
+            refreshAll();
+            setInterval(refreshStats, 30000);
+        });
+    </script>
+</body>
+</html>

@@ -1,0 +1,849 @@
+<!doctype html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="utf-8"/>
+    <meta name="viewport" content="width=device-width,initial-scale=1"/>
+    <title>تسجيل الدخول · MOUHAMED-HOST</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700;900&display=swap');
+
+        /* ===== ROOT ===== */
+        :root {
+            --bg-primary: #060812;
+            --bg-secondary: #0b0f1a;
+            --glass: rgba(255, 255, 255, .07);
+            --border-glass: rgba(255, 255, 255, .14);
+            --text-primary: rgba(255, 255, 255, .92);
+            --text-secondary: rgba(255, 255, 255, .65);
+            --text-muted: rgba(255, 255, 255, .35);
+            --accent-1: #00d4ff;
+            --accent-2: #7b61ff;
+            --accent-glow: rgba(0, 212, 255, .25);
+            --gradient-accent: linear-gradient(135deg, #00d4ff, #7b61ff);
+            --gradient-card: linear-gradient(170deg, rgba(255, 255, 255, .10), rgba(255, 255, 255, .04));
+            --shadow-soft: 0 30px 90px rgba(0, 0, 0, .70);
+            --radius-md: 16px;
+            --radius-lg: 24px;
+            --transition: .25s cubic-bezier(.34, 1.56, .64, 1);
+            --font: 'Cairo', system-ui, sans-serif;
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            min-height: 100vh;
+            display: grid;
+            place-items: center;
+            color: var(--text-primary);
+            font-family: var(--font);
+            background: var(--bg-primary);
+            overflow: hidden;
+            position: relative;
+        }
+
+        /* ===== STARS CANVAS ===== */
+        #stars-canvas {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: 0;
+            pointer-events: none;
+        }
+
+        /* ===== NEBULA GLOW ===== */
+        .nebula {
+            position: fixed;
+            border-radius: 50%;
+            filter: blur(90px);
+            pointer-events: none;
+            z-index: 1;
+            animation: nebula-pulse 8s ease-in-out infinite alternate;
+        }
+        .nebula-1 {
+            width: 700px;
+            height: 500px;
+            top: -150px;
+            left: -200px;
+            background: radial-gradient(ellipse, rgba(0, 212, 255, .22) 0%, transparent 70%);
+        }
+        .nebula-2 {
+            width: 600px;
+            height: 450px;
+            bottom: -100px;
+            right: -150px;
+            background: radial-gradient(ellipse, rgba(123, 97, 255, .18) 0%, transparent 70%);
+            animation-delay: -4s;
+        }
+        .nebula-3 {
+            width: 400px;
+            height: 400px;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            background: radial-gradient(ellipse, rgba(0, 212, 255, .08) 0%, transparent 70%);
+            animation-delay: -2s;
+        }
+        .nebula-4 {
+            width: 350px;
+            height: 250px;
+            top: 20%;
+            right: 10%;
+            background: radial-gradient(ellipse, rgba(255, 100, 200, .08) 0%, transparent 70%);
+            animation-delay: -6s;
+        }
+
+        @keyframes nebula-pulse {
+            0% {
+                opacity: .5;
+                transform: scale(1);
+            }
+            100% {
+                opacity: 1;
+                transform: scale(1.12);
+            }
+        }
+
+        /* ===== LOGIN CARD ===== */
+        .card {
+            position: relative;
+            z-index: 10;
+            width: min(460px, 94vw);
+            border: 1px solid var(--border-glass);
+            background: var(--gradient-card);
+            border-radius: var(--radius-lg);
+            backdrop-filter: blur(24px);
+            -webkit-backdrop-filter: blur(24px);
+            box-shadow:
+                0 30px 90px rgba(0, 0, 0, .70),
+                0 0 0 1px rgba(255, 255, 255, .06),
+                inset 0 1px 0 rgba(255, 255, 255, .12);
+            padding: 34px;
+            animation: card-appear .7s cubic-bezier(.34, 1.56, .64, 1) both;
+        }
+
+        @keyframes card-appear {
+            from {
+                opacity: 0;
+                transform: translateY(40px) scale(.94);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0) scale(1);
+            }
+        }
+
+        /* ===== LOGO AREA ===== */
+        .logo-area {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 14px;
+            margin-bottom: 24px;
+        }
+
+        .logo-image {
+            width: 120px;
+            height: 120px;
+            border-radius: 20px;
+            object-fit: cover;
+            border: 2px solid rgba(0, 212, 255, .30);
+            box-shadow: 0 15px 40px rgba(0, 212, 255, .25), 0 0 60px rgba(123, 97, 255, .15);
+            animation: logo-float 3s ease-in-out infinite;
+        }
+
+        @keyframes logo-float {
+            0%,
+            100% {
+                transform: translateY(0);
+            }
+            50% {
+                transform: translateY(-8px);
+            }
+        }
+
+        .logo-text {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 4px;
+        }
+
+        .logo-name {
+            font-size: 26px;
+            font-weight: 900;
+            letter-spacing: 1.5px;
+            background: var(--gradient-accent);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            line-height: 1.2;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+        }
+
+        .logo-name .verify-badge {
+            width: 20px;
+            height: 20px;
+            background: var(--gradient-accent);
+            border-radius: 50%;
+            display: inline-grid;
+            place-items: center;
+            font-size: 12px;
+            color: #00131c;
+            font-weight: 900;
+            -webkit-text-fill-color: #00131c;
+        }
+
+        .logo-sub {
+            font-size: 12px;
+            color: var(--text-secondary);
+            font-weight: 600;
+            letter-spacing: .2px;
+        }
+
+        /* ===== DIVIDER ===== */
+        .divider {
+            height: 1px;
+            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, .18), transparent);
+            margin: 0 0 24px 0;
+        }
+
+        /* ===== FORM TITLE ===== */
+        .form-title {
+            font-size: 15px;
+            font-weight: 700;
+            color: var(--text-primary);
+            margin-bottom: 20px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+        .form-title::before {
+            content: '🔐';
+            font-size: 14px;
+        }
+
+        /* ===== INPUT GROUP ===== */
+        .input-group {
+            position: relative;
+            margin-bottom: 16px;
+        }
+
+        .input-group label {
+            display: block;
+            font-size: 12px;
+            font-weight: 700;
+            color: var(--text-secondary);
+            margin-bottom: 7px;
+            letter-spacing: .3px;
+        }
+
+        .input-wrap {
+            position: relative;
+        }
+
+        .input-icon {
+            position: absolute;
+            right: 14px;
+            top: 50%;
+            transform: translateY(-50%);
+            font-size: 15px;
+            pointer-events: none;
+            opacity: .5;
+        }
+
+        .input-group input {
+            width: 100%;
+            padding: 14px 42px 14px 16px;
+            border-radius: var(--radius-md);
+            border: 1px solid rgba(255, 255, 255, .12);
+            background: rgba(0, 0, 0, .40);
+            color: var(--text-primary);
+            outline: none;
+            font-family: var(--font);
+            font-size: 14px;
+            transition: border-color .25s, box-shadow .25s, background .25s;
+        }
+
+        .input-group input:focus {
+            border-color: rgba(0, 212, 255, .55);
+            box-shadow: 0 0 0 3px rgba(0, 212, 255, .12), 0 0 20px rgba(0, 212, 255, .08);
+            background: rgba(0, 0, 0, .50);
+        }
+
+        .input-group input::placeholder {
+            color: rgba(255, 255, 255, .28);
+        }
+
+        /* ===== LOGIN BUTTON ===== */
+        .btn-login {
+            width: 100%;
+            padding: 15px;
+            border-radius: var(--radius-md);
+            border: 0;
+            background: var(--gradient-accent);
+            color: #00131c;
+            font-weight: 900;
+            font-size: 15px;
+            font-family: var(--font);
+            cursor: pointer;
+            margin-top: 8px;
+            transition: transform .15s, box-shadow .15s;
+            box-shadow: 0 10px 35px rgba(0, 212, 255, .30);
+            letter-spacing: .5px;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .btn-login::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, .20), transparent);
+            transition: left .5s;
+        }
+
+        .btn-login:hover::before {
+            left: 100%;
+        }
+
+        .btn-login:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 14px 45px rgba(0, 212, 255, .45);
+        }
+
+        .btn-login:active {
+            transform: translateY(0);
+        }
+
+        .btn-login:disabled {
+            opacity: .7;
+            cursor: not-allowed;
+            transform: none;
+        }
+
+        /* ===== MESSAGE ===== */
+        .msg {
+            margin-top: 14px;
+            padding: 11px 15px;
+            border-radius: 12px;
+            font-size: 12.5px;
+            font-weight: 600;
+            min-height: 16px;
+            text-align: center;
+            transition: all .3s;
+        }
+
+        .msg.error {
+            background: rgba(255, 77, 77, .12);
+            border: 1px solid rgba(255, 77, 77, .28);
+            color: #ff9999;
+        }
+
+        .msg.loading {
+            color: var(--text-secondary);
+        }
+
+        .msg.success {
+            background: rgba(51, 255, 153, .10);
+            border: 1px solid rgba(51, 255, 153, .25);
+            color: #7CFF7C;
+        }
+
+        /* ===== CARD FOOTER ===== */
+        .card-footer {
+            margin-top: 22px;
+            text-align: center;
+            font-size: 11px;
+            color: rgba(255, 255, 255, .32);
+            border-top: 1px solid rgba(255, 255, 255, .07);
+            padding-top: 18px;
+        }
+
+        .card-footer span {
+            color: var(--accent-1);
+            font-weight: 700;
+        }
+
+        /* ===== DEVELOPER BUTTON ===== */
+        .dev-btn {
+            position: fixed;
+            bottom: 24px;
+            left: 24px;
+            z-index: 100;
+            display: flex;
+            align-items: center;
+            gap: 9px;
+            padding: 11px 18px;
+            border-radius: 50px;
+            background: linear-gradient(135deg, rgba(0, 212, 255, .12), rgba(123, 97, 255, .12));
+            border: 1px solid rgba(0, 212, 255, .28);
+            color: rgba(255, 255, 255, .85);
+            font-size: 12px;
+            font-weight: 700;
+            font-family: var(--font);
+            cursor: pointer;
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            transition: all .25s;
+            text-decoration: none;
+            box-shadow: 0 4px 20px rgba(0, 212, 255, .10);
+            animation: dev-float 3s ease-in-out infinite;
+        }
+        .dev-btn:hover {
+            background: linear-gradient(135deg, rgba(0, 212, 255, .22), rgba(123, 97, 255, .22));
+            border-color: rgba(0, 212, 255, .55);
+            transform: translateY(-3px);
+            box-shadow: 0 8px 30px rgba(0, 212, 255, .25);
+            color: white;
+            animation: none;
+        }
+        .dev-btn .dev-icon {
+            width: 24px;
+            height: 24px;
+            border-radius: 50%;
+            background: var(--gradient-accent);
+            display: grid;
+            place-items: center;
+            font-size: 12px;
+            flex-shrink: 0;
+        }
+
+        @keyframes dev-float {
+            0%,
+            100% {
+                transform: translateY(0);
+            }
+            50% {
+                transform: translateY(-4px);
+            }
+        }
+
+        /* ===== VERSION BADGE ===== */
+        .version-badge {
+            position: absolute;
+            top: 16px;
+            left: 16px;
+            background: rgba(0, 212, 255, .12);
+            border: 1px solid rgba(0, 212, 255, .22);
+            color: rgba(0, 212, 255, .85);
+            font-size: 10px;
+            font-weight: 700;
+            padding: 3px 9px;
+            border-radius: 999px;
+            letter-spacing: .5px;
+        }
+
+        /* ===== FLOATING PARTICLES ===== */
+        .particle {
+            position: fixed;
+            border-radius: 50%;
+            pointer-events: none;
+            z-index: 1;
+            animation: particle-float linear infinite;
+        }
+
+        @keyframes particle-float {
+            0% {
+                transform: translateY(100vh) rotate(0deg);
+                opacity: 0;
+            }
+            10% {
+                opacity: .6;
+            }
+            90% {
+                opacity: .3;
+            }
+            100% {
+                transform: translateY(-100px) rotate(720deg);
+                opacity: 0;
+            }
+        }
+
+        /* ===== SHAKE ANIMATION ===== */
+        @keyframes shake {
+            0%,
+            100% {
+                transform: translateX(0);
+            }
+            20% {
+                transform: translateX(-8px);
+            }
+            40% {
+                transform: translateX(8px);
+            }
+            60% {
+                transform: translateX(-6px);
+            }
+            80% {
+                transform: translateX(6px);
+            }
+        }
+
+        /* ===== RESPONSIVE ===== */
+        @media (max-width: 480px) {
+            .card {
+                padding: 24px 18px;
+            }
+            .logo-image {
+                width: 90px;
+                height: 90px;
+            }
+            .logo-name {
+                font-size: 22px;
+            }
+            .btn-login {
+                font-size: 14px;
+                padding: 13px;
+            }
+            .dev-btn {
+                bottom: 16px;
+                left: 16px;
+                padding: 8px 14px;
+                font-size: 11px;
+            }
+            .dev-btn .dev-icon {
+                width: 20px;
+                height: 20px;
+                font-size: 10px;
+            }
+            .version-badge {
+                top: 12px;
+                left: 12px;
+                font-size: 9px;
+                padding: 2px 7px;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Stars Canvas -->
+    <canvas id="stars-canvas"></canvas>
+
+    <!-- Nebula Effects -->
+    <div class="nebula nebula-1"></div>
+    <div class="nebula nebula-2"></div>
+    <div class="nebula nebula-3"></div>
+    <div class="nebula nebula-4"></div>
+
+    <!-- Login Card -->
+    <div class="card">
+        <div class="version-badge">v2.0</div>
+
+        <div class="logo-area">
+            <img src="omar-bro.png" alt="MOUHAMED" class="logo-image">
+            <div class="logo-text">
+                <div class="logo-name">
+                    MOUHAMED
+                    <span class="verify-badge">✓</span>
+                </div>
+                <div class="logo-sub">لوحة تحكم الاستضافة المتقدمة</div>
+            </div>
+        </div>
+
+        <div class="divider"></div>
+
+        <div class="form-title">تسجيل الدخول إلى حسابك</div>
+
+        <div class="input-group">
+            <label>اسم المستخدم</label>
+            <div class="input-wrap">
+                <span class="input-icon">👤</span>
+                <input id="u" placeholder="أدخل اسم المستخدم" autocomplete="username"
+                onkeydown="if(event.key==='Enter')document.getElementById('p').focus()">
+            </div>
+        </div>
+
+        <div class="input-group">
+            <label>كلمة المرور</label>
+            <div class="input-wrap">
+                <span class="input-icon">🔑</span>
+                <input id="p" placeholder="أدخل كلمة المرور" type="password"
+                autocomplete="current-password"
+                onkeydown="if(event.key==='Enter')doLogin()">
+            </div>
+        </div>
+
+        <button class="btn-login" onclick="doLogin()">دخول إلى اللوحة</button>
+
+        <div class="msg" id="m"></div>
+
+        <div class="card-footer">
+            <span>MOUHAMED-HOST</span> &mdash; لوحة تحكم Python المتقدمة<br>
+            للحصول على حساب، تواصل مع المسؤول
+        </div>
+    </div>
+
+    <!-- Developer Button -->
+    <a class="dev-btn" href="https://t.me/anankfg" target="_blank" rel="noopener" title="تواصل مع المطور @oivxm">
+        <div class="dev-icon">✈</div>
+        <span>المطور @oivxm</span>
+    </a>
+
+    <script>
+        // ===== Stars Animation (Enhanced) =====
+        const canvas = document.getElementById('stars-canvas');
+        const ctx = canvas.getContext('2d');
+
+        let stars = [];
+        let shootingStars = [];
+        let W, H;
+        let animFrame;
+
+        function resize() {
+            W = canvas.width = window.innerWidth;
+            H = canvas.height = window.innerHeight;
+            createStars();
+        }
+
+        function createStars() {
+            stars = [];
+            const count = Math.floor((W * H) / 2200);
+            for (let i = 0; i < count; i++) {
+                const type = Math.random();
+                stars.push({
+                    x: Math.random() * W,
+                    y: Math.random() * H,
+                    r: type > 0.95 ? Math.random() * 2.2 + 1.2 : (type > 0.7 ? Math.random() * 1.2 + 0.5 : Math.random() * 0.8 +
+                        0.1),
+                    alpha: Math.random() * 0.7 + 0.3,
+                    baseAlpha: 0,
+                    speed: Math.random() * 0.25 + 0.03,
+                    twinkle: Math.random() * Math.PI * 2,
+                    twinkleSpeed: Math.random() * 0.025 + 0.005,
+                    color: pickStarColor(),
+                    pulse: Math.random() > 0.97,
+                    pulsePhase: Math.random() * Math.PI * 2
+                });
+                stars[stars.length - 1].baseAlpha = stars[stars.length - 1].alpha;
+            }
+        }
+
+        function pickStarColor() {
+            const r = Math.random();
+            if (r > 0.88) return '#a0d8ff';
+            if (r > 0.78) return '#d4aaff';
+            if (r > 0.68) return '#ffe0a0';
+            return '#ffffff';
+        }
+
+        function createShootingStar() {
+            const angle = Math.random() * 35 + 10;
+            const rad = angle * Math.PI / 180;
+            const startX = Math.random() * W * 1.4 - W * 0.2;
+            const startY = Math.random() * H * 0.45;
+            const speed = 9 + Math.random() * 8;
+            shootingStars.push({
+                x: startX,
+                y: startY,
+                vx: Math.cos(rad) * speed,
+                vy: Math.sin(rad) * speed,
+                len: 100 + Math.random() * 150,
+                alpha: 1,
+                life: 1,
+                width: 1 + Math.random() * 1.5
+            });
+        }
+
+        function drawFrame() {
+            ctx.clearRect(0, 0, W, H);
+
+            // Draw regular stars
+            for (const s of stars) {
+                s.twinkle += s.twinkleSpeed;
+                let a = s.baseAlpha * (0.55 + 0.45 * Math.sin(s.twinkle));
+
+                if (s.pulse) {
+                    s.pulsePhase += 0.03;
+                    a *= (0.7 + 0.3 * Math.sin(s.pulsePhase));
+                }
+
+                ctx.globalAlpha = a;
+                ctx.fillStyle = s.color;
+                ctx.beginPath();
+                ctx.arc(s.x, s.y, s.r, 0, Math.PI * 2);
+                ctx.fill();
+
+                // Glow for bigger stars
+                if (s.r > 1.0) {
+                    const gR = s.r * 3;
+                    const grad = ctx.createRadialGradient(s.x, s.y, 0, s.x, s.y, gR);
+                    grad.addColorStop(0, s.color);
+                    grad.addColorStop(1, 'transparent');
+                    ctx.beginPath();
+                    ctx.arc(s.x, s.y, gR, 0, Math.PI * 2);
+                    ctx.fillStyle = grad;
+                    ctx.globalAlpha = a * 0.35;
+                    ctx.fill();
+                }
+
+                // Cross sparkle for very bright stars
+                if (s.r > 1.8) {
+                    ctx.globalAlpha = a * 0.25;
+                    ctx.strokeStyle = s.color;
+                    ctx.lineWidth = 0.5;
+                    const len = s.r * 5;
+                    ctx.beginPath();
+                    ctx.moveTo(s.x - len, s.y);
+                    ctx.lineTo(s.x + len, s.y);
+                    ctx.moveTo(s.x, s.y - len);
+                    ctx.lineTo(s.x, s.y + len);
+                    ctx.stroke();
+                }
+            }
+
+            // Draw shooting stars
+            for (let i = shootingStars.length - 1; i >= 0; i--) {
+                const ss = shootingStars[i];
+                ss.x += ss.vx;
+                ss.y += ss.vy;
+                ss.life -= 0.013;
+                ss.alpha = ss.life * ss.life;
+
+                if (ss.life <= 0 || ss.x > W + 200 || ss.y > H + 200) {
+                    shootingStars.splice(i, 1);
+                    continue;
+                }
+
+                const tailX = ss.x - ss.vx * (ss.len / 10);
+                const tailY = ss.y - ss.vy * (ss.len / 10);
+
+                const grad = ctx.createLinearGradient(tailX, tailY, ss.x, ss.y);
+                grad.addColorStop(0, 'transparent');
+                grad.addColorStop(0.6, `rgba(180,220,255,${ss.alpha * 0.5})`);
+                grad.addColorStop(0.85, `rgba(220,240,255,${ss.alpha * 0.8})`);
+                grad.addColorStop(1, `rgba(255,255,255,${ss.alpha})`);
+
+                ctx.beginPath();
+                ctx.moveTo(tailX, tailY);
+                ctx.lineTo(ss.x, ss.y);
+                ctx.strokeStyle = grad;
+                ctx.lineWidth = ss.width;
+                ctx.globalAlpha = ss.alpha;
+                ctx.stroke();
+
+                // Head glow
+                const headGrad = ctx.createRadialGradient(ss.x, ss.y, 0, ss.x, ss.y, 4);
+                headGrad.addColorStop(0, `rgba(255,255,255,${ss.alpha})`);
+                headGrad.addColorStop(0.5, `rgba(180,220,255,${ss.alpha * 0.6})`);
+                headGrad.addColorStop(1, 'transparent');
+                ctx.beginPath();
+                ctx.arc(ss.x, ss.y, 4, 0, Math.PI * 2);
+                ctx.fillStyle = headGrad;
+                ctx.globalAlpha = ss.alpha;
+                ctx.fill();
+            }
+
+            ctx.globalAlpha = 1;
+            animFrame = requestAnimationFrame(drawFrame);
+        }
+
+        // Init
+        resize();
+        drawFrame();
+
+        window.addEventListener('resize', () => {
+            cancelAnimationFrame(animFrame);
+            resize();
+            drawFrame();
+        });
+
+        // Spawn shooting stars periodically
+        setInterval(() => {
+            if (Math.random() > 0.35) createShootingStar();
+        }, 2200);
+
+        // Spawn occasional double shooting stars
+        setInterval(() => {
+            if (Math.random() > 0.6) {
+                createShootingStar();
+                setTimeout(createShootingStar, 200);
+            }
+        }, 7000);
+
+        // ===== Floating Particles =====
+        function createParticle() {
+            const p = document.createElement('div');
+            p.className = 'particle';
+            const size = Math.random() * 3 + 1;
+            const colors = ['rgba(0,212,255,.4)', 'rgba(123,97,255,.4)', 'rgba(255,255,255,.2)'];
+            p.style.cssText = `
+            width:${size}px;height:${size}px;
+            left:${Math.random() * 100}vw;
+            background:${colors[Math.floor(Math.random()*colors.length)]};
+            animation-duration:${8 + Math.random() * 15}s;
+            animation-delay:${Math.random() * 10}s;
+          `;
+            document.body.appendChild(p);
+            setTimeout(() => p.remove(), 25000);
+        }
+
+        setInterval(createParticle, 1500);
+
+        // ===== Login Logic (unchanged) =====
+        async function doLogin() {
+            const m = document.getElementById('m');
+            const btn = document.querySelector('.btn-login');
+
+            m.className = 'msg loading';
+            m.textContent = '⏳ جاري تسجيل الدخول...';
+            btn.disabled = true;
+            btn.textContent = 'جاري الدخول...';
+
+            const username = document.getElementById('u').value.trim();
+            const password = document.getElementById('p').value;
+
+            if (!username || !password) {
+                m.className = 'msg error';
+                m.textContent = '⚠ يرجى إدخال اسم المستخدم وكلمة المرور';
+                btn.disabled = false;
+                btn.textContent = 'دخول إلى اللوحة';
+                return;
+            }
+
+            try {
+                const r = await fetch('/api/auth/login', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ username, password })
+                });
+                const d = await r.json().catch(() => ({ success: false, message: 'خطأ في الخادم' }));
+
+                if (!r.ok || !d.success) {
+                    m.className = 'msg error';
+                    m.textContent = '✕ ' + (d.message || 'فشل تسجيل الدخول. تحقق من البيانات.');
+                    btn.disabled = false;
+                    btn.textContent = 'دخول إلى اللوحة';
+                    // Shake animation
+                    document.querySelector('.card').style.animation = 'shake .4s ease';
+                    setTimeout(() => document.querySelector('.card').style.animation = '', 400);
+                    return;
+                }
+
+                m.className = 'msg success';
+                m.textContent = '✓ تم الدخول بنجاح! جاري التحويل...';
+                setTimeout(() => {
+                    location.href = d.is_admin ? '/admin' : '/';
+                }, 600);
+
+            } catch (e) {
+                m.className = 'msg error';
+                m.textContent = '✕ خطأ في الاتصال بالخادم';
+                btn.disabled = false;
+                btn.textContent = 'دخول إلى اللوحة';
+            }
+        }
+    </script>
+</body>
+</html>

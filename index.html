@@ -1,0 +1,1647 @@
+<!doctype html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width,initial-scale=1" />
+    <title>MOUHAMED-HOST · لوحة التحكم</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700;900&display=swap" rel="stylesheet">
+
+    <style>
+        /* ===== ROOT ===== */
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+        :root {
+            --bg-primary: #06080e;
+            --bg-secondary: #0b0f1a;
+            --bg-card: rgba(255, 255, 255, .05);
+            --border-subtle: rgba(255, 255, 255, .07);
+            --border-glass: rgba(255, 255, 255, .10);
+            --text-primary: #f0f4ff;
+            --text-secondary: #9aa7b9;
+            --text-muted: #6a7a8e;
+            --accent-1: #00d4ff;
+            --accent-2: #7b61ff;
+            --accent-glow: rgba(0, 212, 255, .25);
+            --gradient-accent: linear-gradient(135deg, #00d4ff, #7b61ff);
+            --gradient-card: linear-gradient(170deg, rgba(255, 255, 255, .07), rgba(255, 255, 255, .02));
+            --shadow-soft: 0 12px 48px rgba(0, 0, 0, .60);
+            --radius-sm: 10px;
+            --radius-md: 16px;
+            --radius-lg: 22px;
+            --radius-xl: 28px;
+            --transition: .25s cubic-bezier(.34, 1.56, .64, 1);
+            --font: 'Cairo', system-ui, sans-serif;
+            --danger: #ff6b6b;
+            --ok: #7CFF7C;
+            --warn: #ffd166;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            font-family: var(--font);
+            color: var(--text-primary);
+            background: var(--bg-primary);
+            min-height: 100vh;
+            background-image:
+                radial-gradient(1200px 700px at 5% 5%, rgba(0, 212, 255, .12), transparent 60%),
+                radial-gradient(1000px 600px at 95% 15%, rgba(123, 97, 255, .10), transparent 55%),
+                radial-gradient(800px 500px at 50% 100%, rgba(0, 212, 255, .05), transparent 50%);
+            background-attachment: fixed;
+            line-height: 1.6;
+        }
+
+        /* ===== SCROLLBAR ===== */
+        ::-webkit-scrollbar {
+            width: 6px;
+            height: 6px;
+        }
+        ::-webkit-scrollbar-track {
+            background: var(--bg-primary);
+        }
+        ::-webkit-scrollbar-thumb {
+            background: var(--gradient-accent);
+            border-radius: 999px;
+        }
+
+        /* ===== TOP BAR ===== */
+        .topbar {
+            position: sticky;
+            top: 0;
+            z-index: 30;
+            backdrop-filter: blur(24px) saturate(1.4);
+            -webkit-backdrop-filter: blur(24px) saturate(1.4);
+            background: rgba(6, 8, 14, .72);
+            border-bottom: 1px solid var(--border-glass);
+            transition: background var(--transition);
+        }
+        .topbar:hover {
+            background: rgba(6, 8, 14, .88);
+        }
+
+        .topbar-inner {
+            max-width: 1360px;
+            margin: 0 auto;
+            padding: 12px 24px;
+            display: flex;
+            gap: 16px;
+            align-items: center;
+            justify-content: space-between;
+            flex-wrap: wrap;
+        }
+
+        .brand {
+            display: flex;
+            align-items: center;
+            gap: 14px;
+            font-weight: 900;
+            letter-spacing: .3px;
+        }
+        .brand .logo {
+            width: 44px;
+            height: 44px;
+            border-radius: var(--radius-sm);
+            cursor: pointer;
+            display: grid;
+            place-items: center;
+            font-size: 22px;
+            background: var(--gradient-accent);
+            box-shadow: 0 0 30px rgba(0, 212, 255, .20);
+            border: 1px solid rgba(255, 255, 255, .12);
+            transition: transform var(--transition), box-shadow var(--transition);
+        }
+        .brand .logo:hover {
+            transform: scale(1.04);
+            box-shadow: 0 0 40px rgba(0, 212, 255, .35);
+        }
+        .brand .title {
+            font-size: 16px;
+            line-height: 1.2;
+            background: var(--gradient-accent);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+        .brand .sub {
+            display: block;
+            font-weight: 600;
+            color: var(--text-secondary);
+            font-size: 11px;
+            letter-spacing: .2px;
+            margin-top: 2px;
+            -webkit-text-fill-color: var(--text-secondary);
+        }
+
+        .actions {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            flex-wrap: wrap;
+        }
+
+        /* ===== BUTTONS ===== */
+        .btn {
+            padding: 9px 18px;
+            border-radius: var(--radius-sm);
+            border: 1px solid var(--border-glass);
+            background: rgba(255, 255, 255, .06);
+            color: var(--text-primary);
+            font-weight: 700;
+            cursor: pointer;
+            font-family: var(--font);
+            font-size: 13px;
+            transition: all var(--transition);
+            backdrop-filter: blur(6px);
+            -webkit-backdrop-filter: blur(6px);
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            text-decoration: none;
+            user-select: none;
+        }
+        .btn:hover {
+            background: rgba(255, 255, 255, .12);
+            transform: translateY(-2px);
+            border-color: rgba(255, 255, 255, .18);
+            box-shadow: 0 6px 24px rgba(0, 0, 0, .30);
+        }
+        .btn:active {
+            transform: translateY(0px) scale(.97);
+        }
+
+        .btn-primary {
+            border: 0;
+            background: var(--gradient-accent);
+            color: #00131c;
+            box-shadow: 0 4px 20px rgba(0, 212, 255, .20);
+        }
+        .btn-primary:hover {
+            box-shadow: 0 6px 32px rgba(0, 212, 255, .35);
+            transform: translateY(-2px);
+            border-color: transparent;
+        }
+
+        .btn-danger {
+            background: rgba(255, 77, 77, .14);
+            border-color: rgba(255, 77, 77, .25);
+            color: #ffaaaa;
+        }
+        .btn-danger:hover {
+            background: rgba(255, 77, 77, .22);
+            border-color: rgba(255, 77, 77, .40);
+        }
+
+        .btn-success {
+            background: rgba(51, 255, 153, .12);
+            border-color: rgba(51, 255, 153, .25);
+            color: #33ff99;
+        }
+        .btn-success:hover {
+            background: rgba(51, 255, 153, .20);
+            border-color: rgba(51, 255, 153, .40);
+        }
+
+        .btn-mini {
+            padding: 6px 14px;
+            border-radius: 8px;
+            font-size: 12px;
+        }
+
+        .btn-block {
+            width: 100%;
+            padding: 13px;
+            border-radius: var(--radius-sm);
+            border: 1px solid var(--border-glass);
+            background: rgba(255, 255, 255, .06);
+            color: var(--text-primary);
+            font-weight: 800;
+            font-family: var(--font);
+            font-size: 13px;
+            cursor: pointer;
+            transition: all var(--transition);
+            backdrop-filter: blur(6px);
+            -webkit-backdrop-filter: blur(6px);
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+        }
+        .btn-block:hover {
+            background: rgba(255, 255, 255, .12);
+            transform: translateY(-2px);
+            border-color: rgba(255, 255, 255, .18);
+            box-shadow: 0 6px 24px rgba(0, 0, 0, .30);
+        }
+        .btn-block.primary {
+            border: 0;
+            background: var(--gradient-accent);
+            color: #00131c;
+            box-shadow: 0 4px 20px rgba(0, 212, 255, .20);
+        }
+        .btn-block.primary:hover {
+            box-shadow: 0 6px 32px rgba(0, 212, 255, .35);
+        }
+        .btn-block.danger {
+            background: rgba(255, 77, 77, .14);
+            border-color: rgba(255, 77, 77, .25);
+            color: #ffaaaa;
+        }
+        .btn-block.danger:hover {
+            background: rgba(255, 77, 77, .22);
+            border-color: rgba(255, 77, 77, .40);
+        }
+
+        /* ===== CONTAINER ===== */
+        .container {
+            max-width: 1360px;
+            margin: 24px auto 60px;
+            padding: 0 24px;
+        }
+
+        /* ===== STATS HEADER ===== */
+        .stats-header {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 14px;
+            margin-bottom: 28px;
+        }
+        @media (max-width: 600px) {
+            .stats-header {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        .stat-box {
+            border: 1px solid var(--border-glass);
+            background: var(--gradient-card);
+            border-radius: var(--radius-md);
+            padding: 18px 20px;
+            display: flex;
+            gap: 14px;
+            align-items: center;
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            transition: all var(--transition);
+            box-shadow: var(--shadow-soft);
+        }
+        .stat-box:hover {
+            transform: translateY(-2px);
+            border-color: rgba(0, 212, 255, .20);
+        }
+        .stat-box .icon {
+            width: 48px;
+            height: 48px;
+            border-radius: var(--radius-sm);
+            display: grid;
+            place-items: center;
+            font-size: 24px;
+            background: rgba(0, 212, 255, .08);
+            border: 1px solid rgba(0, 212, 255, .20);
+            flex-shrink: 0;
+        }
+        .stat-box .label {
+            color: var(--text-secondary);
+            font-size: 12px;
+            font-weight: 700;
+            letter-spacing: .3px;
+        }
+        .stat-box .value {
+            font-size: 20px;
+            font-weight: 900;
+            margin-top: 2px;
+            background: var(--gradient-accent);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        /* ===== GRID ===== */
+        .grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 16px;
+        }
+        @media (max-width: 1050px) {
+            .grid {
+                grid-template-columns: repeat(3, 1fr);
+            }
+        }
+        @media (max-width: 760px) {
+            .grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+        }
+        @media (max-width: 480px) {
+            .grid {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        .card {
+            border: 1px solid var(--border-glass);
+            background: var(--gradient-card);
+            border-radius: var(--radius-md);
+            padding: 20px 18px;
+            box-shadow: var(--shadow-soft);
+            backdrop-filter: blur(14px);
+            -webkit-backdrop-filter: blur(14px);
+            cursor: pointer;
+            transition: all var(--transition);
+            position: relative;
+            overflow: hidden;
+            min-height: 130px;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+        }
+        .card:hover {
+            transform: translateY(-4px);
+            border-color: rgba(0, 212, 255, .30);
+            box-shadow: 0 16px 56px rgba(0, 0, 0, .55);
+        }
+        .card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 2px;
+            background: var(--gradient-accent);
+            opacity: 0;
+            transition: opacity var(--transition);
+        }
+        .card:hover::before {
+            opacity: .8;
+        }
+        .card .card-top {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            gap: 8px;
+        }
+        .card .card-top .srv-title {
+            font-weight: 950;
+            font-size: 15px;
+            letter-spacing: .3px;
+            color: var(--text-primary);
+        }
+        .card .card-top .srv-sub {
+            margin-top: 4px;
+            color: var(--text-secondary);
+            font-size: 12px;
+            line-height: 1.4;
+        }
+        .card .card-actions {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            flex-shrink: 0;
+        }
+        .card .pill {
+            margin-top: 12px;
+            align-self: flex-start;
+        }
+
+        /* ===== PILL ===== */
+        .pill {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            padding: 5px 14px;
+            border-radius: 999px;
+            border: 1px solid var(--border-glass);
+            background: rgba(0, 0, 0, .25);
+            font-size: 11px;
+            font-weight: 800;
+            letter-spacing: .3px;
+            text-transform: uppercase;
+            color: var(--text-secondary);
+            backdrop-filter: blur(4px);
+            -webkit-backdrop-filter: blur(4px);
+        }
+        .pill .dot {
+            width: 8px;
+            height: 8px;
+            border-radius: 50%;
+            flex-shrink: 0;
+        }
+        .pill.running .dot {
+            background: var(--ok);
+            box-shadow: 0 0 8px var(--ok);
+        }
+        .pill.installing .dot {
+            background: var(--warn);
+            animation: blink 1s infinite;
+        }
+        .pill.banned .dot {
+            background: var(--danger);
+        }
+        .pill.offline .dot {
+            background: rgba(255, 255, 255, .30);
+        }
+
+        @keyframes blink {
+            0%,
+            100% {
+                opacity: 1
+            }
+            50% {
+                opacity: .3
+            }
+        }
+
+        /* ===== EMPTY STATE ===== */
+        .empty-state {
+            text-align: center;
+            padding: 60px 20px;
+            color: var(--text-secondary);
+            grid-column: 1 / -1;
+        }
+        .empty-state .icon {
+            font-size: 52px;
+            margin-bottom: 16px;
+            opacity: .5;
+        }
+        .empty-state h3 {
+            font-size: 18px;
+            font-weight: 700;
+            margin-bottom: 8px;
+            color: var(--text-primary);
+        }
+        .empty-state p {
+            font-size: 13px;
+            line-height: 1.6;
+            color: var(--text-muted);
+        }
+
+        /* ===== SERVER VIEW ===== */
+        #serverView {
+            display: none;
+        }
+
+        .header-row {
+            display: flex;
+            align-items: flex-start;
+            justify-content: space-between;
+            gap: 16px;
+            flex-wrap: wrap;
+            margin-top: 8px;
+            margin-bottom: 16px;
+        }
+        .header-row .hleft h1 {
+            margin: 0;
+            font-size: 24px;
+            font-weight: 950;
+            letter-spacing: .5px;
+            background: var(--gradient-accent);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+        .header-row .hleft .muted {
+            margin-top: 4px;
+            color: var(--text-secondary);
+            font-size: 13px;
+        }
+
+        .tabs {
+            display: flex;
+            gap: 10px;
+            align-items: center;
+            flex-wrap: wrap;
+        }
+        .tab {
+            padding: 10px 20px;
+            border-radius: var(--radius-sm);
+            border: 1px solid var(--border-glass);
+            background: rgba(255, 255, 255, .05);
+            color: var(--text-secondary);
+            cursor: pointer;
+            font-weight: 700;
+            font-size: 13px;
+            font-family: var(--font);
+            transition: all var(--transition);
+            backdrop-filter: blur(6px);
+            -webkit-backdrop-filter: blur(6px);
+        }
+        .tab:hover:not(.active) {
+            color: var(--text-primary);
+            background: rgba(255, 255, 255, .08);
+        }
+        .tab.active {
+            background: var(--gradient-accent);
+            color: #00131c;
+            border: 0;
+            box-shadow: 0 4px 20px rgba(0, 212, 255, .20);
+        }
+
+        /* ===== PANEL ===== */
+        .panel {
+            margin-top: 14px;
+            border: 1px solid var(--border-glass);
+            background: var(--gradient-card);
+            border-radius: var(--radius-md);
+            backdrop-filter: blur(14px);
+            -webkit-backdrop-filter: blur(14px);
+            box-shadow: var(--shadow-soft);
+            overflow: hidden;
+        }
+
+        .grid-2 {
+            display: grid;
+            grid-template-columns: 1fr 320px;
+            gap: 16px;
+            padding: 18px;
+        }
+        @media (max-width: 980px) {
+            .grid-2 {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        .console {
+            background: rgba(0, 0, 0, .55);
+            border: 1px solid var(--border-glass);
+            border-radius: var(--radius-sm);
+            padding: 16px;
+            height: 480px;
+            overflow: auto;
+            font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
+            font-size: 12px;
+            line-height: 1.6;
+            white-space: pre-wrap;
+            color: rgba(235, 245, 255, .86);
+            direction: ltr;
+            text-align: left;
+            transition: border-color var(--transition);
+        }
+        .console:focus-within {
+            border-color: rgba(0, 212, 255, .30);
+        }
+
+        .side {
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+        }
+
+        .stat {
+            border: 1px solid var(--border-glass);
+            background: rgba(0, 0, 0, .25);
+            border-radius: var(--radius-sm);
+            padding: 12px 14px;
+            display: flex;
+            gap: 12px;
+            align-items: center;
+            backdrop-filter: blur(6px);
+            -webkit-backdrop-filter: blur(6px);
+            transition: border-color var(--transition);
+        }
+        .stat:hover {
+            border-color: rgba(0, 212, 255, .15);
+        }
+        .stat .ico {
+            width: 36px;
+            height: 36px;
+            border-radius: var(--radius-sm);
+            display: grid;
+            place-items: center;
+            background: rgba(255, 255, 255, .06);
+            border: 1px solid var(--border-glass);
+            font-size: 16px;
+            flex-shrink: 0;
+        }
+        .stat small {
+            display: block;
+            color: var(--text-secondary);
+            font-weight: 700;
+            letter-spacing: .3px;
+            font-size: 10px;
+            text-transform: uppercase;
+        }
+        .stat b {
+            display: block;
+            margin-top: 2px;
+            font-size: 14px;
+            font-weight: 900;
+            color: var(--text-primary);
+        }
+        #mainFileTxt {
+            color: var(--accent-1);
+            cursor: pointer;
+        }
+
+        /* ===== FILES ===== */
+        .fm-top {
+            display: flex;
+            align-items: flex-start;
+            justify-content: space-between;
+            gap: 12px;
+            flex-wrap: wrap;
+            padding: 16px 18px;
+            border-bottom: 1px solid var(--border-glass);
+        }
+        .fm-top .fm-title {
+            font-weight: 950;
+            font-size: 16px;
+            color: var(--text-primary);
+        }
+        .path {
+            color: var(--text-secondary);
+            font-size: 12px;
+            margin-top: 4px;
+            direction: ltr;
+            text-align: left;
+            word-break: break-all;
+        }
+        .crumb a {
+            color: var(--accent-1);
+            text-decoration: none;
+            font-weight: 900;
+            transition: color var(--transition);
+        }
+        .crumb a:hover {
+            color: var(--accent-2);
+        }
+        .crumb .sep {
+            color: rgba(255, 255, 255, .25);
+            padding: 0 4px;
+        }
+
+        .table {
+            width: 100%;
+            border-collapse: collapse;
+            font-size: 13px;
+        }
+        .table th,
+        .table td {
+            padding: 12px 16px;
+            border-bottom: 1px solid var(--border-glass);
+            text-align: right;
+            vertical-align: middle;
+        }
+        .table th {
+            color: var(--text-secondary);
+            font-weight: 900;
+            text-transform: uppercase;
+            letter-spacing: .5px;
+            font-size: 11px;
+            background: rgba(0, 0, 0, .20);
+        }
+        .table tr:last-child td {
+            border-bottom: 0;
+        }
+        .table tr:hover td {
+            background: rgba(255, 255, 255, .03);
+        }
+        .name-link {
+            color: var(--accent-1);
+            font-weight: 900;
+            cursor: pointer;
+            transition: color var(--transition);
+        }
+        .name-link:hover {
+            color: var(--accent-2);
+        }
+        .row-actions {
+            white-space: nowrap;
+            display: flex;
+            gap: 6px;
+            flex-wrap: wrap;
+            justify-content: flex-end;
+        }
+        .row-actions .btn {
+            padding: 4px 10px;
+            font-size: 11px;
+            border-radius: 6px;
+        }
+
+        /* ===== MODAL ===== */
+        .modal-backdrop {
+            position: fixed;
+            inset: 0;
+            background: rgba(0, 0, 0, .75);
+            backdrop-filter: blur(18px);
+            -webkit-backdrop-filter: blur(18px);
+            display: none;
+            align-items: center;
+            justify-content: center;
+            z-index: 50;
+            padding: 20px;
+            animation: fadeIn .2s ease;
+        }
+        .modal-backdrop.active {
+            display: flex;
+        }
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+            }
+            to {
+                opacity: 1;
+            }
+        }
+
+        .modal {
+            width: 100%;
+            max-width: 440px;
+            background: linear-gradient(170deg, rgba(16, 22, 40, .98), rgba(8, 12, 24, .98));
+            border: 1px solid var(--border-glass);
+            border-radius: var(--radius-lg);
+            box-shadow: 0 40px 100px rgba(0, 0, 0, .70);
+            backdrop-filter: blur(24px);
+            -webkit-backdrop-filter: blur(24px);
+            padding: 28px 30px;
+            animation: modalPop .35s cubic-bezier(.34, 1.56, .64, 1);
+        }
+        @keyframes modalPop {
+            from {
+                opacity: 0;
+                transform: scale(.92) translateY(24px);
+            }
+            to {
+                opacity: 1;
+                transform: scale(1) translateY(0);
+            }
+        }
+        .modal h3 {
+            margin: 0 0 14px 0;
+            font-size: 18px;
+            font-weight: 900;
+            background: var(--gradient-accent);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+        .modal input {
+            width: 100%;
+            padding: 12px 16px;
+            border-radius: var(--radius-sm);
+            border: 1px solid var(--border-glass);
+            background: rgba(0, 0, 0, .40);
+            color: var(--text-primary);
+            outline: none;
+            font-family: var(--font);
+            font-size: 14px;
+            transition: border-color var(--transition), box-shadow var(--transition);
+        }
+        .modal input:focus {
+            border-color: rgba(0, 212, 255, .50);
+            box-shadow: 0 0 0 4px rgba(0, 212, 255, .08);
+        }
+        .modal .actions {
+            display: flex;
+            gap: 10px;
+            justify-content: flex-end;
+            margin-top: 18px;
+        }
+
+        /* ===== EDITOR ===== */
+        #editor-modal {
+            display: none;
+            position: fixed;
+            inset: 0;
+            background: rgba(0, 0, 0, .82);
+            backdrop-filter: blur(18px);
+            -webkit-backdrop-filter: blur(18px);
+            z-index: 60;
+            padding: 18px;
+            animation: fadeIn .25s ease;
+        }
+        .editor {
+            height: 100%;
+            max-width: 1200px;
+            margin: 0 auto;
+            border-radius: var(--radius-md);
+            border: 1px solid var(--border-glass);
+            background: rgba(10, 14, 22, .85);
+            backdrop-filter: blur(16px);
+            -webkit-backdrop-filter: blur(16px);
+            box-shadow: var(--shadow-soft);
+            display: flex;
+            flex-direction: column;
+            overflow: hidden;
+        }
+        .editor-top {
+            padding: 14px 18px;
+            border-bottom: 1px solid var(--border-glass);
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 12px;
+            flex-wrap: wrap;
+        }
+        .editor-top .fn {
+            font-weight: 950;
+            color: var(--accent-1);
+            word-break: break-all;
+            direction: ltr;
+            font-size: 15px;
+        }
+        #ed-area {
+            flex: 1;
+            background: transparent;
+            color: rgba(235, 245, 255, .92);
+            border: 0;
+            outline: none;
+            font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
+            font-size: 13px;
+            padding: 18px;
+            resize: none;
+            line-height: 1.6;
+            direction: ltr;
+            text-align: left;
+            min-height: 300px;
+        }
+        #ed-area::selection {
+            background: rgba(0, 212, 255, .25);
+        }
+
+        /* ===== TOAST ===== */
+        .toast {
+            position: fixed;
+            top: 24px;
+            left: 50%;
+            transform: translateX(-50%) translateY(-100px);
+            background: var(--gradient-accent);
+            color: #00131c;
+            padding: 14px 32px;
+            border-radius: 50px;
+            font-weight: 800;
+            font-size: 14px;
+            font-family: var(--font);
+            z-index: 200;
+            transition: transform .4s cubic-bezier(.34, 1.56, .64, 1), opacity .4s ease;
+            pointer-events: none;
+            box-shadow: 0 8px 40px rgba(0, 212, 255, .25);
+            white-space: nowrap;
+            opacity: 0;
+        }
+        .toast.show {
+            transform: translateX(-50%) translateY(0);
+            opacity: 1;
+        }
+        .toast.error {
+            background: linear-gradient(135deg, rgba(255, 77, 77, .92), rgba(200, 50, 50, .85));
+            color: #fff;
+            box-shadow: 0 8px 40px rgba(255, 77, 77, .30);
+        }
+
+        /* ===== DEV BUTTON ===== */
+        .dev-btn {
+            position: fixed;
+            bottom: 24px;
+            left: 24px;
+            z-index: 40;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            padding: 10px 18px;
+            border-radius: 50px;
+            background: rgba(0, 212, 255, .10);
+            border: 1px solid rgba(0, 212, 255, .25);
+            color: var(--text-primary);
+            font-size: 12px;
+            font-weight: 700;
+            font-family: var(--font);
+            cursor: pointer;
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            transition: all var(--transition);
+            text-decoration: none;
+        }
+        .dev-btn:hover {
+            background: rgba(0, 212, 255, .18);
+            border-color: rgba(0, 212, 255, .45);
+            transform: translateY(-2px);
+            box-shadow: 0 6px 24px rgba(0, 212, 255, .15);
+        }
+
+        /* ===== RESPONSIVE ===== */
+        @media (max-width: 768px) {
+            .topbar-inner {
+                padding: 10px 16px;
+            }
+            .container {
+                padding: 0 14px;
+                margin: 16px auto;
+            }
+            .modal {
+                padding: 20px 18px;
+            }
+            .grid-2 {
+                padding: 12px;
+            }
+            .console {
+                height: 320px;
+            }
+            .stat-box .value {
+                font-size: 18px;
+            }
+            .header-row .hleft h1 {
+                font-size: 20px;
+            }
+            .tab {
+                padding: 8px 14px;
+                font-size: 12px;
+            }
+            .brand .title {
+                font-size: 14px;
+            }
+            .brand .sub {
+                font-size: 10px;
+            }
+            .btn {
+                font-size: 12px;
+                padding: 7px 14px;
+            }
+            .fm-top {
+                padding: 12px 14px;
+            }
+            .table th,
+            .table td {
+                padding: 10px 12px;
+                font-size: 12px;
+            }
+            .row-actions .btn {
+                padding: 3px 8px;
+                font-size: 10px;
+            }
+            .dev-btn {
+                bottom: 16px;
+                left: 16px;
+                padding: 8px 14px;
+                font-size: 11px;
+            }
+            .toast {
+                font-size: 12px;
+                padding: 10px 20px;
+                white-space: normal;
+                max-width: 90%;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .stats-header {
+                grid-template-columns: 1fr;
+            }
+            .stat-box .icon {
+                width: 40px;
+                height: 40px;
+                font-size: 20px;
+            }
+            .stat-box .value {
+                font-size: 16px;
+            }
+            .side .stat {
+                padding: 10px 12px;
+            }
+        }
+
+        /* ===== UTILITY ===== */
+        .text-muted {
+            color: var(--text-muted);
+        }
+        .text-accent {
+            color: var(--accent-1);
+        }
+        .mt-8 {
+            margin-top: 8px;
+        }
+        .flex {
+            display: flex;
+        }
+        .gap-8 {
+            gap: 8px;
+        }
+        .items-center {
+            align-items: center;
+        }
+    </style>
+</head>
+
+<body>
+
+    <!-- Toast -->
+    <div class="toast" id="toast"></div>
+
+    <div class="topbar">
+        <div class="topbar-inner">
+            <div class="brand">
+                <div class="logo" role="button" tabindex="0" title="الرئيسية" onclick="location.href='/'" onkeypress="if(event.key==='Enter') location.href='/'">🌐</div>
+                <div>
+                    <div class="title">MOUHAMED-HOST</div>
+                    <span class="sub" id="pyHostTxt">جاري التحميل...</span>
+                </div>
+            </div>
+
+            <div class="actions">
+                <button id="adminBtn" class="btn" style="display:none" onclick="location.href='/admin'">⚙️ لوحة الأدمن</button>
+                <button id="homeBtn" class="btn" style="display:none" onclick="goHome()">🏠 الرئيسية</button>
+                <button id="newBtn" class="btn btn-primary">+ سيرفر جديد</button>
+                <button class="btn btn-danger" onclick="location.href='/logout'">خروج</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- HOME -->
+    <div class="container" id="homeView">
+        <!-- Stats Header -->
+        <div class="stats-header">
+            <div class="stat-box">
+                <div class="icon">📅</div>
+                <div>
+                    <div class="label">الأيام المتبقية</div>
+                    <div class="value" id="headerDaysLeft">—</div>
+                </div>
+            </div>
+            <div class="stat-box">
+                <div class="icon">🖥️</div>
+                <div>
+                    <div class="label">السيرفرات المستخدمة</div>
+                    <div class="value" id="headerServersCount">—</div>
+                </div>
+            </div>
+        </div>
+
+        <div class="grid" id="cardsContainer"></div>
+    </div>
+
+    <!-- SERVER VIEW -->
+    <div class="container" id="serverView">
+        <div class="header-row">
+            <div class="hleft">
+                <h1 id="srvHeader">السيرفر</h1>
+                <div class="muted" id="srvSub">إدارة السيرفر</div>
+            </div>
+            <div class="tabs">
+                <button class="tab active" id="tabConsole" onclick="switchTab('console')">📟 الكونسول</button>
+                <button class="tab" id="tabFiles" onclick="switchTab('files')">📁 مدير الملفات</button>
+            </div>
+        </div>
+
+        <!-- Console -->
+        <div class="panel" id="viewConsole">
+            <div class="grid-2">
+                <div class="console" id="logOut">جاري التهيئة...</div>
+                <script>
+                    // تحديث الكونسول لعرض آخر 15 سطر فقط
+                    const originalConsole = document.getElementById('logOut');
+                    const maxLines = 15;
+                    let logLines = [];
+
+                    function addLogLine(text) {
+                        logLines.push(text);
+                        if (logLines.length > maxLines) {
+                            logLines.shift();
+                        }
+                        originalConsole.textContent = logLines.join('\n');
+                        originalConsole.scrollTop = originalConsole.scrollHeight;
+                    }
+                </script>
+                <div class="side">
+                    <button id="btnStart" class="btn-block primary" onclick="srvAction('start')">▶ تشغيل</button>
+                    <button class="btn-block" onclick="srvAction('restart')">🔄 إعادة تشغيل</button>
+                    <button class="btn-block danger" onclick="srvAction('stop')">⏹ إيقاف</button>
+                    <button class="btn-block danger" onclick="deleteServer()" style="background:rgba(255,100,100,.15);border-color:rgba(255,100,100,.3)">🗑 حذف السيرفر</button>
+
+                    <div class="stat"><div class="ico">⚡</div><div><small>الحالة</small><b id="statusTxt">غير متصل</b></div></div>
+                    <div class="stat"><div class="ico">🧠</div><div><small>الذاكرة</small><b id="memTxt">0 MB</b></div></div>
+                    <div class="stat"><div class="ico">💿</div><div><small>الملف الرئيسي</small><b id="mainFileTxt" style="color:var(--accent-1)">main.py</b></div></div>
+                    <div class="stat"><div class="ico">📡</div><div><small>عنوان IP</small><b id="ipTxt">0.0.0.0</b></div></div>
+                    <div class="stat"><div class="ico">📅</div><div><small>الأيام المتبقية</small><b id="daysLeftTxt">—</b></div></div>
+                    <div class="stat"><div class="ico">🖥️</div><div><small>السيرفرات</small><b id="serversCountTxt">—</b></div></div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Files -->
+        <div class="panel" id="viewFiles" style="display:none">
+            <div class="fm-top">
+                <div>
+                    <div class="fm-title">📁 مدير الملفات</div>
+                    <div class="path" id="pathBar"></div>
+                </div>
+                <div class="actions">
+                    <button id="btnBack" class="btn btn-mini" onclick="goUp()" style="display:none">⬅ رجوع</button>
+                    <button class="btn btn-mini" onclick="newFolder()">📁 مجلد جديد</button>
+                    <button class="btn btn-mini btn-primary" onclick="document.getElementById('uplFiles').click()">⬆ رفع ملفات</button>
+                    <button class="btn btn-mini" onclick="document.getElementById('uplFolder').click()">📦 رفع مجلد</button>
+                </div>
+            </div>
+
+            <input type="file" id="uplFiles" multiple hidden onchange="doUploadFiles(this)">
+            <input type="file" id="uplFolder" webkitdirectory directory multiple hidden onchange="doUploadFolder(this)">
+
+            <table class="table">
+                <thead><tr><th>الاسم</th><th>الحجم</th><th>الإجراءات</th></tr></thead>
+                <tbody id="fileList"></tbody>
+            </table>
+        </div>
+    </div>
+
+    <!-- Editor -->
+    <div id="editor-modal">
+        <div class="editor">
+            <div class="editor-top">
+                <div class="fn" id="ed-title">ملف</div>
+                <div class="actions">
+                    <button class="btn btn-primary" onclick="saveFile()">💾 حفظ</button>
+                    <button class="btn btn-danger" onclick="closeEditor()">✕ إغلاق</button>
+                </div>
+            </div>
+            <textarea id="ed-area" spellcheck="false"></textarea>
+        </div>
+    </div>
+
+    <!-- Modal -->
+    <div id="modalBackdrop" class="modal-backdrop">
+        <div class="modal">
+            <h3 id="mTitle">العنوان</h3>
+            <input id="mIn" />
+            <div class="actions">
+                <button class="btn" onclick="closeM()">إلغاء</button>
+                <button id="mConfirm" class="btn btn-primary">تأكيد</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Developer Button -->
+    <a class="dev-btn" href="https://t.me/anankfg" target="_blank" title="قناة المطور">
+        ✈ المطور
+    </a>
+
+    <script>
+        let currentSrv = null,
+            poll = null,
+            currentFile = null;
+        let currentPath = '';
+
+        // Toast notification
+        function showToast(msg, duration = 2500) {
+            const t = document.getElementById('toast');
+            t.textContent = msg;
+            t.classList.add('show');
+            setTimeout(() => t.classList.remove('show'), duration);
+        }
+
+        function isAuthPage() {
+            return location.pathname.startsWith('/login') || location.pathname.startsWith('/create');
+        }
+
+        function safeRedirect(url) {
+            if (!isAuthPage()) location.href = url;
+        }
+
+        function statusClass(st) {
+            st = (st || '').toLowerCase();
+            if (st === 'running') return 'running';
+            if (st === 'installing' || st === 'starting') return 'installing';
+            if (st === 'banned') return 'banned';
+            return 'offline';
+        }
+
+        function statusLabel(st) {
+            const map = {
+                'running': 'يعمل',
+                'installing': 'يُثبَّت',
+                'starting': 'يبدأ',
+                'banned': 'محظور',
+                'offline': 'غير متصل'
+            };
+            return map[(st || '').toLowerCase()] || st || 'غير متصل';
+        }
+
+        async function loadUserInfo() {
+            try {
+                const r = await fetch('/api/user/info');
+                if (r.ok) {
+                    const d = await r.json();
+                    if (d.success) {
+                        const daysLeft = d.days_left || '—';
+                        const serversUsed = d.servers_used || 0;
+                        const serversLimit = d.servers_limit || 1;
+                        const daysText = daysLeft === '—' ? '—' : `${daysLeft} يوم`;
+                        const serversText = `${serversUsed}/${serversLimit}`;
+                        document.getElementById('daysLeftTxt').textContent = daysText;
+                        document.getElementById('serversCountTxt').textContent = serversText;
+                        document.getElementById('headerDaysLeft').textContent = daysText;
+                        document.getElementById('headerServersCount').textContent = serversText;
+                    }
+                }
+            } catch (e) {}
+        }
+
+        async function loadPythonHost() {
+            const ipTxt = document.getElementById('pyHostTxt');
+            try {
+                const r = await fetch('/servers');
+                if (r.redirected) { safeRedirect(r.url); return; }
+                const d = await r.json();
+
+                const port = location.port || 5000;
+                if (!d.servers || d.servers.length === 0) {
+                    ipTxt.textContent = `المضيف: ${location.hostname}:${port}`;
+                    return;
+                }
+
+                const key = d.servers[0].key || d.servers[0].folder;
+                const s = await fetch(`/server/stats/${encodeURIComponent(key)}`);
+                if (s.redirected) { safeRedirect(s.url); return; }
+                const sd = await s.json();
+                const ip = sd.ip || location.hostname;
+                ipTxt.textContent = `المضيف: ${ip}:${port}`;
+                loadUserInfo();
+            } catch (e) {
+                const port = location.port || 5000;
+                ipTxt.textContent = `المضيف: ${location.hostname}:${port}`;
+            }
+        }
+
+        async function loadServers() {
+            const r = await fetch('/servers');
+            if (r.redirected) { safeRedirect(r.url); return; }
+            const d = await r.json();
+            const cont = document.getElementById('cardsContainer');
+            cont.innerHTML = '';
+
+            // show admin button if admin page accessible
+            fetch('/admin').then(res => {
+                if (!res.redirected && res.status === 200) document.getElementById('adminBtn').style.display = 'inline-block';
+            }).catch(() => {});
+
+            const servers = d.servers || [];
+
+            if (servers.length === 0) {
+                cont.innerHTML = `
+                <div class="empty-state">
+                  <div class="icon">🖥️</div>
+                  <h3>لا توجد سيرفرات بعد</h3>
+                  <p>اضغط على "سيرفر جديد" لإنشاء سيرفرك الأول</p>
+                </div>
+              `;
+                return;
+            }
+
+            servers.forEach(s => {
+                s.key = s.key || s.folder;
+
+                const div = document.createElement('div');
+                div.className = 'card';
+                const cls = statusClass(s.status);
+                const label = statusLabel(s.status);
+
+                div.innerHTML = `
+                <div class="card-top">
+                  <div>
+                    <div class="srv-title">${escapeHtml(s.title)}</div>
+                    <div class="srv-sub">${escapeHtml(s.subtitle || '')}</div>
+                  </div>
+                  <div class="card-actions">
+                    <button class="btn btn-mini btn-danger" onclick="event.stopPropagation(); deleteServerQuick('${escapeAttr(s.key)}', '${escapeAttr(s.title)}')">🗑</button>
+                  </div>
+                </div>
+                <div class="pill ${cls}"><span class="dot"></span>${label}</div>
+              `;
+                div.onclick = () => openServer(s);
+                cont.appendChild(div);
+            });
+        }
+
+        function openServer(s) {
+            currentSrv = s;
+            currentPath = '';
+
+            document.getElementById('homeView').style.display = 'none';
+            document.getElementById('serverView').style.display = 'block';
+            document.getElementById('homeBtn').style.display = 'inline-block';
+            document.getElementById('newBtn').style.display = 'none';
+
+            document.getElementById('srvHeader').textContent = s.title;
+            document.getElementById('srvSub').textContent = s.subtitle || '';
+            document.getElementById('mainFileTxt').textContent = 'main.py';
+
+            switchTab('console');
+        }
+
+        function goHome() {
+            document.getElementById('homeView').style.display = 'block';
+            document.getElementById('serverView').style.display = 'none';
+            document.getElementById('homeBtn').style.display = 'none';
+            document.getElementById('newBtn').style.display = 'inline-block';
+            clearInterval(poll);
+            loadServers();
+        }
+
+        function switchTab(t) {
+            document.getElementById('tabConsole').classList.toggle('active', t === 'console');
+            document.getElementById('tabFiles').classList.toggle('active', t === 'files');
+
+            document.getElementById('viewConsole').style.display = t === 'console' ? 'block' : 'none';
+            document.getElementById('viewFiles').style.display = t === 'files' ? 'block' : 'none';
+
+            if (t === 'console') startPolling();
+            else { clearInterval(poll);
+                loadFiles(); }
+        }
+
+        async function deleteServer() {
+            if (!confirm(`هل أنت متأكد من حذف السيرفر "${currentSrv.title}"?\n\n⚠ هذه العملية غير قابلة للعكس!`)) return;
+            showToast('جاري حذف السيرفر...');
+            try {
+                const r = await fetch(`/server/delete/${encodeURIComponent(currentSrv.key)}`, { method: 'POST' });
+                if (r.ok) {
+                    showToast('تم حذف السيرفر بنجاح ✓');
+                    goHome();
+                } else {
+                    showToast('فشل حذف السيرفر', true);
+                }
+            } catch (e) {
+                showToast('خطأ في الاتصال', true);
+            }
+        }
+
+        async function deleteServerQuick(key, title) {
+            if (!confirm(`هل أنت متأكد من حذف السيرفر "${title}"?\n\n⚠ هذه العملية غير قابلة للعكس!`)) return;
+            showToast('جاري حذف السيرفر...');
+            try {
+                const r = await fetch(`/server/delete/${encodeURIComponent(key)}`, { method: 'POST' });
+                if (r.ok) {
+                    showToast('تم حذف السيرفر بنجاح ✓');
+                    loadServers();
+                } else {
+                    showToast('فشل حذف السيرفر', true);
+                }
+            } catch (e) {
+                showToast('خطأ في الاتصال', true);
+            }
+        }
+
+        async function startPolling() {
+            if (poll) clearInterval(poll);
+
+            const fn = async () => {
+                try {
+                    const r = await fetch(`/server/stats/${encodeURIComponent(currentSrv.key)}`);
+                    if (r.redirected) { safeRedirect(r.url); return; }
+                    const d = await r.json();
+
+                    document.getElementById('logOut').textContent = d.logs || "لا توجد سجلات";
+                    document.getElementById('statusTxt').textContent = statusLabel(d.status);
+                    document.getElementById('memTxt').textContent = d.mem || '0 MB';
+                    document.getElementById('ipTxt').textContent = d.ip || '';
+
+                    const running = (d.status === "Running" || d.status === "Installing" || d.status === "Starting");
+                    document.getElementById('btnStart').disabled = running;
+
+                    const lo = document.getElementById('logOut');
+                    lo.scrollTop = lo.scrollHeight;
+                } catch (e) {}
+            };
+
+            fn();
+            poll = setInterval(fn, 2000);
+        }
+
+        async function srvAction(act) {
+            const labels = { start: 'تشغيل', restart: 'إعادة تشغيل', stop: 'إيقاف' };
+            showToast(`جاري ${labels[act] || act}...`);
+            await fetch(`/server/action/${encodeURIComponent(currentSrv.key)}/${act}`, { method: 'POST' });
+        }
+
+        // ---------- File Manager ----------
+        async function loadFiles() {
+            const r = await fetch(`/files/list/${encodeURIComponent(currentSrv.key)}?path=${encodeURIComponent(currentPath)}`);
+            if (r.redirected) { safeRedirect(r.url); return; }
+            const data = await r.json();
+            if (!data.success) { currentPath = ''; return loadFiles(); }
+
+            document.getElementById("btnBack").style.display = (currentPath && currentPath.length > 0) ? "inline-block" : "none";
+
+            const parts = (data.path || '').split('/').filter(Boolean);
+            let acc = '';
+            const crumbs = [`<span class="crumb"><a href="javascript:void(0)" onclick="jumpPath('')">root</a></span>`];
+            for (const p of parts) {
+                acc = acc ? (acc + '/' + p) : p;
+                crumbs.push(`<span class="sep">/</span><span class="crumb"><a href="javascript:void(0)" onclick="jumpPath('${escapeAttr(acc)}')">${escapeHtml(p)}</a></span>`);
+            }
+            document.getElementById('pathBar').innerHTML = crumbs.join('');
+
+            const rows = [];
+
+            for (const d of (data.dirs || [])) {
+                const name = d.name;
+                rows.push(`
+                <tr>
+                  <td><span class="name-link" onclick="openFolder('${escapeAttr(name)}')">📁 ${escapeHtml(name)}</span></td>
+                  <td style="color:var(--text-muted)">—</td>
+                  <td class="row-actions">
+                    <button class="btn btn-mini" onclick="openFolder('${escapeAttr(name)}')">فتح</button>
+                    <button class="btn btn-mini" onclick="renameDir('${escapeAttr(name)}')">إعادة تسمية</button>
+                    <button class="btn btn-mini btn-danger" onclick="deleteDir('${escapeAttr(name)}')">حذف</button>
+                  </td>
+                </tr>
+              `);
+            }
+
+            for (const f of (data.files || [])) {
+                const relFile = currentPath ? `${currentPath}/${f.name}` : f.name;
+                rows.push(`
+                <tr>
+                  <td><span class="name-link" onclick="openEditor('${escapeAttr(relFile)}')">📄 ${escapeHtml(f.name)}</span></td>
+                  <td>${escapeHtml(f.size || '')}</td>
+                  <td class="row-actions">
+                    <button class="btn btn-mini" onclick="renameFilePrompt('${escapeAttr(f.name)}')">إعادة تسمية</button>
+                    <button class="btn btn-mini btn-danger" onclick="deleteFilePrompt('${escapeAttr(f.name)}')">حذف</button>
+                  </td>
+                </tr>
+              `);
+            }
+
+            if (rows.length === 0) {
+                rows.push(`<tr><td colspan="3" style="text-align:center;padding:30px;color:var(--text-muted)">المجلد فارغ</td></tr>`);
+            }
+
+            document.getElementById('fileList').innerHTML = rows.join('');
+        }
+
+        function openFolder(name) {
+            currentPath = currentPath ? (currentPath + '/' + name) : name;
+            loadFiles();
+        }
+
+        function jumpPath(p) { currentPath = p || '';
+            loadFiles(); }
+
+        function goUp() {
+            if (!currentPath) return;
+            const parts = currentPath.split('/').filter(Boolean);
+            parts.pop();
+            currentPath = parts.join('/');
+            loadFiles();
+        }
+
+        function newFolder() {
+            openM("اسم المجلد الجديد", "", async (v) => {
+                await fetch(`/files/mkdir/${encodeURIComponent(currentSrv.key)}`, {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ path: currentPath, name: v })
+                });
+                loadFiles();
+                closeM();
+                showToast('تم إنشاء المجلد ✓');
+            });
+        }
+
+        function renameDir(oldName) {
+            openM("الاسم الجديد للمجلد", oldName, async (v) => {
+                await fetch(`/files/rename/${encodeURIComponent(currentSrv.key)}`, {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ path: currentPath, old: oldName, new: v })
+                });
+                loadFiles();
+                closeM();
+            });
+        }
+
+        async function deleteDir(name) {
+            if (!confirm(`هل تريد حذف المجلد "${name}" وكل محتوياته؟`)) return;
+            await fetch(`/files/delete/${encodeURIComponent(currentSrv.key)}`, {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ path: currentPath, name, kind: 'dir' })
+            });
+            loadFiles();
+            showToast('تم حذف المجلد');
+        }
+
+        function renameFilePrompt(oldName) {
+            openM("الاسم الجديد للملف", oldName, async (v) => {
+                await fetch(`/files/rename/${encodeURIComponent(currentSrv.key)}`, {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ path: currentPath, old: oldName, new: v })
+                });
+                loadFiles();
+                closeM();
+            });
+        }
+
+        async function deleteFilePrompt(name) {
+            if (!confirm(`هل تريد حذف الملف "${name}"؟`)) return;
+            await fetch(`/files/delete/${encodeURIComponent(currentSrv.key)}`, {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ path: currentPath, name, kind: 'file' })
+            });
+            loadFiles();
+            showToast('تم حذف الملف');
+        }
+
+        async function doUploadFiles(input) {
+            if (!input.files || !input.files.length) return;
+            showToast('جاري رفع الملفات...');
+            const fd = new FormData();
+            for (const f of input.files) fd.append("files", f);
+            await fetch(`/files/upload/${encodeURIComponent(currentSrv.key)}?path=${encodeURIComponent(currentPath)}`, {
+                method: "POST",
+                body: fd
+            });
+            input.value = "";
+            loadFiles();
+            showToast('تم رفع الملفات بنجاح ✓');
+        }
+
+        async function doUploadFolder(input) {
+            if (!input.files || !input.files.length) return;
+            showToast('جاري رفع المجلد...');
+            const fd = new FormData();
+            for (const f of input.files) {
+                fd.append("files", f);
+                fd.append("relpaths", f.webkitRelativePath || f.name);
+            }
+            await fetch(`/files/upload/${encodeURIComponent(currentSrv.key)}?path=${encodeURIComponent(currentPath)}`, {
+                method: "POST",
+                body: fd
+            });
+            input.value = "";
+            loadFiles();
+            showToast('تم رفع المجلد بنجاح ✓');
+        }
+
+        // ---------- Editor ----------
+        async function openEditor(name) {
+            currentFile = name;
+            document.getElementById('ed-title').textContent = name;
+
+            const res = await fetch(`/files/content/${encodeURIComponent(currentSrv.key)}?file=${encodeURIComponent(name)}`);
+            if (res.redirected) { safeRedirect(res.url); return; }
+
+            const data = await res.json();
+            document.getElementById('ed-area').value = data.content || '';
+            document.getElementById('editor-modal').style.display = 'block';
+        }
+
+        async function saveFile() {
+            await fetch(`/files/save/${encodeURIComponent(currentSrv.key)}`, {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ file: currentFile, content: document.getElementById('ed-area').value })
+            });
+            showToast('تم حفظ الملف بنجاح ✓');
+        }
+
+        function closeEditor() { document.getElementById('editor-modal').style.display = 'none'; }
+
+        // ---------- Modal ----------
+        function openM(t, v, cb) {
+            document.getElementById('modalBackdrop').style.display = 'flex';
+            document.getElementById('mTitle').textContent = t;
+            document.getElementById('mIn').value = v || "";
+            document.getElementById('mConfirm').onclick = () => cb(document.getElementById('mIn').value);
+            setTimeout(() => document.getElementById('mIn').focus(), 100);
+        }
+
+        function closeM() { document.getElementById('modalBackdrop').style.display = 'none'; }
+
+        // New server
+        document.getElementById('newBtn').onclick = () => openM("اسم السيرفر الجديد", "", async (v) => {
+            const res = await fetch('/add', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ name: v })
+            });
+            const d = await res.json().catch(() => ({ success: false, message: 'خطأ' }));
+            if (!d.success) { alert(d.message || 'فشل الإنشاء'); return; }
+            closeM();
+            loadServers();
+            loadPythonHost();
+            showToast('تم إنشاء السيرفر بنجاح ✓');
+        });
+
+        function escapeHtml(s) {
+            return (s || '')
+                .replaceAll('&', '&amp;')
+                .replaceAll('<', '&lt;')
+                .replaceAll('>', '&gt;')
+                .replaceAll('"', '&quot;')
+                .replaceAll("'", "&#039;");
+        }
+
+        function escapeAttr(s) { return escapeHtml(s).replaceAll("\\", "\\\\"); }
+
+        document.addEventListener('DOMContentLoaded', () => {
+            loadServers();
+            loadPythonHost();
+        });
+    </script>
+</body>
+</html>
